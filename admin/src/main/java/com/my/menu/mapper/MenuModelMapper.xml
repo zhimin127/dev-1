@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuModel">
+	<resultMap id="BaseResultMap" type="com.my.menu.model.MenuModel">
+		<!-- <id column="ID" jdbcType="INTEGER" property="id" /> -->
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="FATHER_ID" property="fatherId" jdbcType="VARCHAR" />
+		<result column="ICON" property="icon" jdbcType="VARCHAR" />
+		<result column="STYLE" property="style" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="SORT" property="sort" jdbcType="INTEGER" />
+		<result column="DEL_FLG" property="delFlg" jdbcType="CHAR" />
+		<result column="RECORD_DATE" property="recordDate" jdbcType="TIMESTAMP" />
+		<result column="RECORDER_ID" property="recorderId" jdbcType="VARCHAR" />
+		<result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+		<result column="LAST_UPDATER_ID" property="lastUpdaterId" jdbcType="VARCHAR" />
+		<collection property="subMenu" javaType="ArrayList" column="{id=ID,type=TYPE}" select="getSubMenu" />
+	</resultMap>
+	<select id="queryAll" parameterType="com.my.menu.model.MenuModel" resultMap="BaseResultMap">
+		select
+		*
+		from menu
+		<where>
+			<if test="type != null and type!=''">
+				TYPE
+			</if>
+			<if test="fatherId != null and fatherId != ''">
+				AND FATHER_ID = #{fatherId}
+			</if>
+		</where>
+	</select>
+
+	<select id="getSubMenu" parameterType="HashMap" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		menu
+		WHERE
+		FATHER_ID = #{id} And TYPE = #{type}
+	</select>
+</mapper>

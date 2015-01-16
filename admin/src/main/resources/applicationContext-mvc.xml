@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- m-v-c 控制器 -->
+	<context:component-scan base-package="com.my.**.controller" />
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="false">
+			<!-- 针对IE Json数据提示下载 -->
+			<bean
+				class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+			<!-- 乱码 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+			<bean
+				class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+				<property name="jsonPrefix" value="!!!" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 静态目录资源，设置后直接spring放行,还是会被拦截所有请求的拦截器拦截 -->
+	<mvc:resources mapping="/font/**" location="/font/" />
+	<mvc:resources mapping="/img/**" location="/img/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/style/**" location="/style/" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/resource/**" location="/resource/" />
+	<mvc:resources mapping="/upload/**" location="/upload/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
+
+	<mvc:freemarker-configurer>
+		<mvc:template-loader-path location="/views/ftl/" />
+	</mvc:freemarker-configurer>
+
+	<mvc:view-resolvers>
+		<mvc:freemarker cache-views="false" prefix="" suffix=".ftl" />
+		<mvc:jsp cache-views="false" prefix="/views/jsp/" suffix=".jsp" />
+	</mvc:view-resolvers>
+
+	<mvc:default-servlet-handler />
+</beans>
