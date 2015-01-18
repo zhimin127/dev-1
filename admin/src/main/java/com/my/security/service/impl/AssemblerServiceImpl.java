@@ -15,22 +15,21 @@ import com.my.user.model.UserModel;
 
 @Service("assemblerService")
 public class AssemblerServiceImpl implements AssemblerService {
-
+    
 	@Transactional(readOnly = true)
 	public User buildUserFromUserEntity(UserModel userAccount) {
 		String username = userAccount.getUsername();
 		String password = userAccount.getPassword();
 		boolean enabled = userAccount.isActive();
-		boolean accountNonExpired = enabled;
-		boolean credentialsNonExpired = enabled;
-		boolean accountNonLocked = enabled;
+		boolean accountNonExpired = userAccount.isExpired();
+		boolean credentialsNonExpired = userAccount.isAuthExpired();
+		boolean accountNonLocked = userAccount.isLocked();
 
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		for (SysRoles role : userAccount.getRoles()) {
 			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 		}
 
-		User user = new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-		return user;
+		return new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 	}
 }

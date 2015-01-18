@@ -18,7 +18,28 @@ public class UserModel extends SysUsers {
 	}
 
 	public boolean isActive() {
-		if (getEnabled() != null && "1".equals(super.getEnabled())) {
+		if (getEnabled() != null && "1".equals(getEnabled())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isExpired() {
+		if(getAccountNonExpired() != null && "1".equals(getAccountNonExpired())){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isLocked() {
+		if(getAccountNonLocked() != null && "1".equals(getAccountNonLocked())){
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isAuthExpired() {
+		if(getCredentialsNonExpired() != null && "1".equals(getCredentialsNonExpired())){
 			return true;
 		}
 		return false;

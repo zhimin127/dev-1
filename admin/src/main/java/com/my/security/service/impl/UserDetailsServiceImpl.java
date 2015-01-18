@@ -1,6 +1,11 @@
 package com.my.security.service.impl;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,20 +18,28 @@ import com.my.user.service.UserService;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	protected final Log logger = LogFactory.getLog(getClass());  
+	
 	@Autowired
-	private UserService userService; 
+	private UserService userService;
 	@Autowired
-    private AssemblerService assemblerService;
+	private UserCache userCache;
+	@Autowired
+	private AssemblerService assemblerService;
+	@Autowired
+	private MessageSource messageSource;
 
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
-		//UserAccount userAccount = userDao.findByUsername(username);
-		UserModel userAccount = userService.findByName(username);
-		if (userAccount == null) {
-			throw new UsernameNotFoundException("user not found");
-		}
-
-		return assemblerService.buildUserFromUserEntity(userAccount);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = (User) this.userCache.getUserFromCache(username);
+		if (user == null) {
+			UserModel userAccount = userService.findByName(username);
+			if (userAccount == null) {
+				throw new UsernameNotFoundException("user not found");
+			}
+			user = assemblerService.buildUserFromUserEntity(userAccount);
+			userCache.putUserInCache(user); 
+		} 
+		return user;
 	}
 
 }
