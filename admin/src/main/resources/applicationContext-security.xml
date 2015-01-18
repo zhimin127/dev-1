@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security" 
-	xmlns:beans="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
@@ -18,14 +16,15 @@
 	<http use-expressions="true" auto-config="true">
 		<intercept-url pattern="/secure/extreme/**" access="hasRole('登录用户')" />
 		<!-- <intercept-url pattern="/secure/**" access="isAuthenticated()" /> -->
-		<intercept-url pattern="/**" access="isAuthenticated()" />
-		<!-- <intercept-url pattern="/index.html" access="isAuthenticated()" /> -->
+		<intercept-url pattern="/**" access="permitAll" />
+
 		<access-denied-handler error-page="/403" />
-		<form-login/>
-		<logout logout-success-url="/login/out" delete-cookies="JSESSIONID" />
+		<form-login login-page="/login.html" authentication-failure-url="/login.html" default-target-url="/index.html" login-processing-url="/login_check"
+			password-parameter="password" username-parameter="username" />
+		<logout logout-success-url="/logout.html" delete-cookies="JSESSIONID" />
 		<remember-me />
 		<!-- Uncomment to limit the number of sessions a user can have -->
-		<session-management invalid-session-url="/timeout">
+		<session-management invalid-session-url="/timeout.html">
 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
 		</session-management>
 
@@ -42,7 +41,6 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<beans:bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 
 	<authentication-manager>

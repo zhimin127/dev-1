@@ -8,17 +8,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="">
   <!-- Stylesheets -->
-  <link href="style/bootstrap.css" rel="stylesheet">
-  <link rel="stylesheet" href="style/font-awesome.css">
-  <link href="style/style.css" rel="stylesheet">
+  <link href="static/style/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/style/font-awesome.css">
+  <link href="static/style/style.css" rel="stylesheet">
   
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
+  <script src="static/js/html5shim.js"></script>
   <![endif]-->
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="img/favicon/favicon.png">
+  <link rel="shortcut icon" href="static/img/favicon/favicon.png">
 </head>
 
 <body>
@@ -69,7 +69,7 @@
 		
 
 <!-- JS -->
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
+<script src="static/js/jquery.js"></script>
+<script src="static/js/bootstrap.js"></script>
 </body>
 </html>

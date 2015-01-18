@@ -30,14 +30,10 @@ public class LoginController {
 	public ModelAndView loginPage(Model model, HttpServletRequest request) {
 		String view = "login";
 		
-		Object u = request.getSession().getAttribute(Constants.LOGIN_USER);
-		if (u != null) {
-			view = "redirect:/index.html";
-		}
 		return new ModelAndView(view);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	//@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView login(Model model, SysUsers user, HttpServletRequest request) {
 		if (user != null) {
 			user = userService.findByNameAndPassword(user.getUsername(), user.getPassword());

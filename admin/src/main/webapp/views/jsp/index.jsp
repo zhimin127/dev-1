@@ -9,37 +9,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="">
   <!-- Stylesheets -->
-  <link href="style/bootstrap.css" rel="stylesheet">
+  <link href="static/style/bootstrap.css" rel="stylesheet">
   <!-- Font awesome icon -->
-  <link rel="stylesheet" href="style/font-awesome.css"> 
+  <link rel="stylesheet" href="static/style/font-awesome.css"> 
   <!-- jQuery UI -->
-  <link rel="stylesheet" href="style/jquery-ui.css"> 
+  <link rel="stylesheet" href="static/style/jquery-ui.css"> 
   <!-- Calendar -->
-  <link rel="stylesheet" href="style/fullcalendar.css">
+  <link rel="stylesheet" href="static/style/fullcalendar.css">
   <!-- prettyPhoto -->
-  <link rel="stylesheet" href="style/prettyPhoto.css">  
+  <link rel="stylesheet" href="static/style/prettyPhoto.css">  
   <!-- Star rating -->
-  <link rel="stylesheet" href="style/rateit.css">
+  <link rel="stylesheet" href="static/style/rateit.css">
   <!-- Date picker -->
-  <link rel="stylesheet" href="style/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="static/style/bootstrap-datetimepicker.min.css">
   <!-- CLEditor -->
-  <link rel="stylesheet" href="style/jquery.cleditor.css"> 
+  <link rel="stylesheet" href="static/style/jquery.cleditor.css"> 
   <!-- Uniform -->
-<!--   <link rel="stylesheet" href="style/uniform.default.css">  -->
+<!--   <link rel="stylesheet" href="static/style/uniform.default.css">  -->
   <!-- Bootstrap toggle -->
-  <link rel="stylesheet" href="style/bootstrap-switch.css">
+  <link rel="stylesheet" href="static/style/bootstrap-switch.css">
   <!-- Main stylesheet -->
-  <link href="style/style.css" rel="stylesheet">
+  <link href="static/style/style.css" rel="stylesheet">
   <!-- Widgets stylesheet -->
-  <link href="style/widgets.css" rel="stylesheet">   
+  <link href="static/style/widgets.css" rel="stylesheet">   
   
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
+  <script src="static/js/html5shim.js"></script>
   <![endif]-->
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="img/favicon/favicon.png">
+  <link rel="shortcut icon" href="static/img/favicon/favicon.png">
 </head>
 
 <body>
@@ -926,37 +926,37 @@
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
 
 <!-- JS -->
-<script src="js/jquery.js"></script> <!-- jQuery -->
+<script src="static/js/jquery.js"></script> <!-- jQuery -->
 <script src="resources/js/my.nav.js"></script><!-- Navigation -->
-<script src="js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
-<script src="js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
-<script src="js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+<script src="static/js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="static/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+<script src="static/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="static/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="static/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
 
 <!-- jQuery Flot -->
-<script src="js/excanvas.min.js"></script>
-<script src="js/jquery.flot.js"></script>
-<script src="js/jquery.flot.resize.js"></script>
-<script src="js/jquery.flot.pie.js"></script>
-<script src="js/jquery.flot.stack.js"></script>
+<script src="static/js/excanvas.min.js"></script>
+<script src="static/js/jquery.flot.js"></script>
+<script src="static/js/jquery.flot.resize.js"></script>
+<script src="static/js/jquery.flot.pie.js"></script>
+<script src="static/js/jquery.flot.stack.js"></script>
 
 <!-- jQuery Notification - Noty -->
-<script src="js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="js/layouts/top.js"></script> <!-- jQuery Notify -->
+<script src="static/js/jquery.noty.js"></script> <!-- jQuery Notify -->
+<script src="static/js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="static/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="static/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="static/js/layouts/top.js"></script> <!-- jQuery Notify -->
 <!-- jQuery Notification ends -->
 
-<script src="js/sparklines.js"></script> <!-- Sparklines -->
-<script src="js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
-<!-- <script src="js/jquery.uniform.min.js"></script> --> <!-- jQuery Uniform -->
-<script src="js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
-<script src="js/filter.js"></script> <!-- Filter for support page -->
-<script src="js/custom.js"></script> <!-- Custom codes -->
-<script src="js/charts.js"></script> <!-- Charts & Graphs -->
+<script src="static/js/sparklines.js"></script> <!-- Sparklines -->
+<script src="static/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="static/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<!-- <script src="static/js/jquery.uniform.min.js"></script> --> <!-- jQuery Uniform -->
+<script src="static/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="static/js/filter.js"></script> <!-- Filter for support page -->
+<script src="static/js/custom.js"></script> <!-- Custom codes -->
+<script src="static/js/charts.js"></script> <!-- Charts & Graphs -->
 
 <!-- Script for this page -->
 <script type="text/javascript">
