@@ -10,10 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50702
 File Encoding         : 65001
 
-Date: 2015-01-17 01:06:39
+Date: 2015-01-19 23:03:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for persistent_logins
+-- ----------------------------
+DROP TABLE IF EXISTS `persistent_logins`;
+CREATE TABLE `persistent_logins` (
+  `USERNAME` varchar(55) DEFAULT NULL,
+  `SERIES` varchar(32) NOT NULL,
+  `TOKEN` varchar(55) DEFAULT NULL,
+  `LAST_USED` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`SERIES`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Spring Remember me 持久化';
+
+-- ----------------------------
+-- Records of persistent_logins
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_authorities
@@ -77,6 +93,17 @@ CREATE TABLE `sys_modules` (
 -- ----------------------------
 -- Records of sys_modules
 -- ----------------------------
+INSERT INTO `sys_modules` VALUES ('818181ec4b028f87014b028f870e0000', '导航', '导航', '0', null, null, '0', null, null, null, '1', '0');
+INSERT INTO `sys_modules` VALUES ('818181ec4b0291b6014b0291b6800000', '用户管理', '用户管理', '1', '818181ec4b028f87014b028f870e0000', null, '1', null, null, null, '1', '1');
+INSERT INTO `sys_modules` VALUES ('818181ec4b029314014b029314d70000', '角色管理', '角色管理', '1', '818181ec4b028f87014b028f870e0000', null, '1', null, null, null, '1', '2');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02941c014b02941cf10000', '资源管理', '资源管理', '1', '818181ec4b028f87014b028f870e0000', null, '1', null, null, null, '1', '3');
+INSERT INTO `sys_modules` VALUES ('818181ec4b029f70014b029f70150000', '用户列表', '用户列表', '2', '818181ec4b0291b6014b0291b6800000', null, '2', null, null, null, '1', '100');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a02d014b02a02da30000', '新增用户', '新增用户', '2', '818181ec4b0291b6014b0291b6800000', null, '2', null, null, null, '1', '101');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a1c6014b02a1c6620000', '角色列表', '角色列表', '2', '818181ec4b029314014b029314d70000', null, '2', null, null, null, '1', '103');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a23f014b02a23fa70000', '新增角色', '新增角色', '2', '818181ec4b029314014b029314d70000', null, '2', null, null, null, '1', '104');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a30e014b02a30e420000', '分配角色', '分配角色', '3', '818181ec4b029f70014b029f70150000', null, '2', null, null, null, '1', '105');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a7be014b02a7be280000', '资源列表', '资源列表', '2', '818181ec4b02941c014b02941cf10000', null, '2', null, null, null, '1', '107');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a812014b02a812fb0000', '添加资源', '添加资源', '2', '818181ec4b02941c014b02941cf10000', null, '2', null, null, null, '1', '108');
 
 -- ----------------------------
 -- Table structure for sys_resources
@@ -100,6 +127,7 @@ CREATE TABLE `sys_resources` (
 -- ----------------------------
 -- Records of sys_resources
 -- ----------------------------
+INSERT INTO `sys_resources` VALUES ('818181ec4b027591014b027591ad0000', '0', '导航', null, '#', '0', '1', '1', null);
 
 -- ----------------------------
 -- Table structure for sys_roles
@@ -186,7 +214,7 @@ CREATE TABLE `sys_users` (
 -- ----------------------------
 -- Records of sys_users
 -- ----------------------------
-INSERT INTO `sys_users` VALUES ('818181ec4ad457c6014ad457c6dc0000', 'admin', '管理员', '21232f297a57a5a743894a0e4a801fc3', '2015-01-10 22:55:30', '2015-01-10 22:55:30', null, null, null, null, '1', null, null, null);
+INSERT INTO `sys_users` VALUES ('818181ec4ad457c6014ad457c6dc0000', 'admin', '管理员', '21232f297a57a5a743894a0e4a801fc3', '2015-01-19 00:55:04', '2015-01-19 00:55:04', null, null, null, null, '1', '1', '1', '1');
 INSERT INTO `sys_users` VALUES ('818181ec4ad46274014ad46274080000', 'abc', '管理员', '900150983cd24fb0d6963f7d28e17f72', '2015-01-10 23:07:10', '2015-01-10 23:07:10', null, null, null, null, '1', null, null, null);
 
 -- ----------------------------
