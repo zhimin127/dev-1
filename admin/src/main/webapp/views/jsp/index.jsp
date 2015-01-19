@@ -159,7 +159,7 @@
         <div class="col-md-4">
           <!-- Logo. -->
           <div class="logo">
-            <h1><a href="#">Mac<span class="bold"></span></a></h1>
+            <h1><a href="#">MY<span class="bold"></span></a></h1>
             <p class="meta">后台管理系统</p>
           </div>
           <!-- Logo ends -->

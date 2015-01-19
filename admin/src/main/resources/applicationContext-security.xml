@@ -18,7 +18,7 @@
 		<!-- <intercept-url pattern="/secure/**" access="isAuthenticated()" /> -->
 		<intercept-url pattern="/**" access="permitAll" />
 
-		<access-denied-handler error-page="/403" />
+		<!-- <access-denied-handler error-page="/403" /> -->
 		<form-login login-page="/login.html" authentication-failure-url="/login.html" default-target-url="/index.html" login-processing-url="/login_check"
 			password-parameter="password" username-parameter="username" />
 		<logout logout-success-url="/logout.html" delete-cookies="JSESSIONID" />

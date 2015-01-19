@@ -12,11 +12,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.my.common.model.SysModules;
+import com.my.common.model.SysResources;
 import com.my.common.model.SysRoles;
 import com.my.common.model.SysUsers;
 import com.my.common.plugin.PageInfo;
 import com.my.menu.model.MenuModel;
 import com.my.menu.service.MenuService;
+import com.my.module.service.impl.ModuleService;
+import com.my.resource.service.ResourceService;
 import com.my.role.service.RoleService;
 import com.my.user.service.UserService;
 import com.my.utils.CalendarUtil;
@@ -27,7 +31,7 @@ import com.my.utils.UUIDGenerator;
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:applicationContext-mvc.xml", "classpath:applicationContext-base.xml" })
 public class Junit_admin {
 
-	@Autowired
+	//@Autowired
 	private UserService userService;
 	// @Autowired
 	private RoleService roleService;
@@ -62,7 +66,7 @@ public class Junit_admin {
 
 	}
 
-	@Test
+	//@Test
 	public void userRoles() {
 		SysUsers user = userService.findByName("abc");
 		System.out.println(json(user));
@@ -102,6 +106,36 @@ public class Junit_admin {
 	// @Test
 	public void addUserRole() {
 		roleService.addUserRole("818181ec4ad46274014ad46274080000", "818181ec4ad85c9a014ad85c9ad60000");
+		// role = service.findByNameAndPassword("abc", "abc");
+	}
+
+	//@Autowired
+	private ResourceService resourcesService;
+	//@Test
+	public void addResources() {
+		SysResources resource = new SysResources();
+		resource.setResourceId(UUIDGenerator.generate());
+		resource.setResourceType("menu");
+		resource.setResourceName("导航");
+		resource.setPriority(0);
+		resource.setEnabled("1");
+		resource.setIsSys("1");
+		resourcesService.sava(resource);
+		// role = service.findByNameAndPassword("abc", "abc");
+	}
+	@Autowired
+	private ModuleService moduleService;
+	@Test
+	public void addModule() {
+		SysModules module = new SysModules();
+		module.setModuleId(UUIDGenerator.generate());
+		module.setModuleName("添加资源");
+		module.setModuleType("2");
+		module.setParent("818181ec4b02941c014b02941cf10000");
+		module.setPriority(107);
+		module.setEnabled("1");
+		module.setLevel("2");
+		moduleService.sava(module);
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 
