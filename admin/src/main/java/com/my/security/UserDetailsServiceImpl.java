@@ -1,4 +1,4 @@
-package com.my.security.service.impl;
+package com.my.security;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,13 +9,12 @@ import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import com.my.security.service.AssemblerService;
 import com.my.user.model.UserModel;
 import com.my.user.service.UserService;
 
-@Service("userDetailsService")
+//@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 	protected final Log logger = LogFactory.getLog(getClass());  

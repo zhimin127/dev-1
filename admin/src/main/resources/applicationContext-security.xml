@@ -15,14 +15,17 @@
 
 	<http use-expressions="true" auto-config="true">
 		<intercept-url pattern="/secure/extreme/**" access="hasRole('登录用户')" />
-		<!-- <intercept-url pattern="/secure/**" access="isAuthenticated()" /> -->
-		<intercept-url pattern="/**" access="permitAll" />
+		<!-- <intercept-url pattern="/**" access="isAuthenticated()" /> -->
+		<intercept-url pattern="/login.html" access="permitAll" />
 
 		<!-- <access-denied-handler error-page="/403" /> -->
 		<form-login login-page="/login.html" authentication-failure-url="/login.html" default-target-url="/index.html" login-processing-url="/login_check"
 			password-parameter="password" username-parameter="username" />
 		<logout logout-success-url="/logout.html" delete-cookies="JSESSIONID" />
 		<remember-me />
+
+		<custom-filter ref="myAuthorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+
 		<!-- Uncomment to limit the number of sessions a user can have -->
 		<session-management invalid-session-url="/timeout.html">
 			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
@@ -30,6 +33,8 @@
 
 	</http>
 
+	<beans:bean id="userDetailService" class="com.my.security.UserDetailsServiceImpl" name="userDetailsService"/>
+	
 	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="userDetailsService" />
 	</beans:bean>
@@ -43,11 +48,24 @@
 	</beans:bean>
 	<beans:bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 
-	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
+	<authentication-manager alias="myAuthenticationManager">
+		<authentication-provider user-service-ref="userDetailService" >
 			<!-- <password-encoder ref="encoder" /> -->
 			<password-encoder ref="md5PasswordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
-
+	
+	<!-- 认证过滤器：判断用户有没有访问特定资源的权限 -->
+	<beans:bean id="myAuthorizationFilter" class="com.my.security.MyAuthorizationFilter">
+		<!-- 用户拥有的权限 -->
+		<beans:property name="authenticationManager" ref="myAuthenticationManager" />
+		<!-- 用户是否拥有所请求资源的权限 -->
+		<beans:property name="accessDecisionManager">
+			<beans:bean class="com.my.security.MyAccessDecisionManager" />
+		</beans:property>
+		<!-- 资源与权限对应关系 -->
+		<beans:property name="securityMetadataSource">
+			<beans:bean class="com.my.security.MySecurityMetadataSource" />
+		</beans:property>
+	</beans:bean>
 </beans:beans>  

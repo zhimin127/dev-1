@@ -19,7 +19,7 @@ import com.my.common.model.SysUsers;
 import com.my.common.plugin.PageInfo;
 import com.my.menu.model.MenuModel;
 import com.my.menu.service.MenuService;
-import com.my.module.service.impl.ModuleService;
+import com.my.module.service.ModuleService;
 import com.my.resource.service.ResourceService;
 import com.my.role.service.RoleService;
 import com.my.user.service.UserService;
@@ -31,8 +31,6 @@ import com.my.utils.UUIDGenerator;
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:applicationContext-mvc.xml", "classpath:applicationContext-base.xml" })
 public class Junit_admin {
 
-	//@Autowired
-	private UserService userService;
 	// @Autowired
 	private RoleService roleService;
 	// @Autowired
@@ -66,6 +64,8 @@ public class Junit_admin {
 
 	}
 
+	//@Autowired
+	private UserService userService;
 	//@Test
 	public void userRoles() {
 		SysUsers user = userService.findByName("abc");
@@ -123,9 +123,11 @@ public class Junit_admin {
 		resourcesService.sava(resource);
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
+	
+	
 	@Autowired
 	private ModuleService moduleService;
-	@Test
+	//@Test
 	public void addModule() {
 		SysModules module = new SysModules();
 		module.setModuleId(UUIDGenerator.generate());
@@ -137,6 +139,10 @@ public class Junit_admin {
 		module.setLevel("2");
 		moduleService.sava(module);
 		// role = service.findByNameAndPassword("abc", "abc");
+	}
+	@Test
+	public void modules(){
+		json(moduleService.findAll().get(0));
 	}
 
 	// @Test
