@@ -1,4 +1,4 @@
-package com.my.common.plugin;
+package com.my.plugin;
 
 import java.io.Serializable;
 import java.util.List;

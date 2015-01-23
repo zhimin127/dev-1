@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,10 @@ import com.my.common.model.SysModules;
 import com.my.common.model.SysResources;
 import com.my.common.model.SysRoles;
 import com.my.common.model.SysUsers;
-import com.my.common.plugin.PageInfo;
 import com.my.menu.model.MenuModel;
 import com.my.menu.service.MenuService;
 import com.my.module.service.ModuleService;
+import com.my.plugin.PageInfo;
 import com.my.resource.service.ResourceService;
 import com.my.role.service.RoleService;
 import com.my.user.service.UserService;
@@ -31,6 +33,8 @@ import com.my.utils.UUIDGenerator;
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:applicationContext-mvc.xml", "classpath:applicationContext-base.xml" })
 public class Junit_admin {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+	
 	// @Autowired
 	private RoleService roleService;
 	// @Autowired
@@ -55,7 +59,7 @@ public class Junit_admin {
 
 	// @Test
 	public void menu() {
-		List<MenuModel> menus = menuService.findAll(null);
+		List<MenuModel> menus = menuService.findAll();
 		System.out.println(menus.size());
 		for (MenuModel menu : menus) {
 			System.out.println(json(menu.getSubMenu()));
@@ -142,7 +146,7 @@ public class Junit_admin {
 	}
 	@Test
 	public void modules(){
-		json(moduleService.findAll().get(0));
+		logger.info(json(moduleService.findAll()));
 	}
 
 	// @Test

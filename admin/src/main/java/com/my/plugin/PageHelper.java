@@ -22,7 +22,7 @@
 	THE SOFTWARE.
 */
 
-package com.my.common.plugin;
+package com.my.plugin;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;

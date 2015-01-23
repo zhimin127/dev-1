@@ -17,8 +17,8 @@ import com.my.user.service.UserService;
 //@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	protected final Log logger = LogFactory.getLog(getClass());  
-	
+	protected final Log logger = LogFactory.getLog(getClass());
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -29,6 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private MessageSource messageSource;
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		logger.info("============================== 1.用户 " + username + " ============================== ");
 		User user = (User) this.userCache.getUserFromCache(username);
 		if (user == null) {
 			UserModel userAccount = userService.findByName(username);
@@ -36,8 +37,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				throw new UsernameNotFoundException("user not found");
 			}
 			user = assemblerService.buildUserFromUserEntity(userAccount);
-			userCache.putUserInCache(user); 
-		} 
+			userCache.putUserInCache(user);
+		}
 		return user;
 	}
 

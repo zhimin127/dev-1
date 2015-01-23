@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.common.model.SysUsers;
-import com.my.common.plugin.PageInfo;
+import com.my.plugin.PageInfo;
 import com.my.user.service.UserService;
 
 @RestController

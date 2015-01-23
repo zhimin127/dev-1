@@ -34,12 +34,12 @@ public class MyAuthorizationFilter extends AbstractSecurityInterceptor implement
 	 * 2.是否拥有权限		:	MyAccessDecisionManager
 	 * 		1) 获取安全主体，可以强制转换为UserDetails的实例
 	 * 		Authentication authenticated = authenticateIfRequired();
-	 * 		this.accessDecisionManager.decide(authenticated, fi, attributes);
+	 * 		this.accessDecisionManager.decide(authenticated, filter, attributes);
 	 * 		2) 用户拥有的权限GrantedAuthority
 	 * 		 Collection<GrantedAuthority> authenticated.getAuthorities()
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		logger.info(">>>>>>>>>>用户发送请求！ ");
+		logger.info("============================== 2.用户发送请求! ============================== ");
 		FilterInvocation filter = new FilterInvocation(request, response, chain);
 		InterceptorStatusToken token = super.beforeInvocation(filter);
 		try {

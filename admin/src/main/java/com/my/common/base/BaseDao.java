@@ -6,7 +6,7 @@ public interface BaseDao<T> {
 
 	public int save(T t);
 
-	public List<T> findAll(T t);
+	public List<T> findAll();
 
 	public T getById(String id);
 
