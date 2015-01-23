@@ -3,8 +3,8 @@ package com.my.user.service;
 import java.util.List;
 
 import com.my.common.model.SysUsers;
-import com.my.common.plugin.PageInfo;
 import com.my.menu.model.MenuModel;
+import com.my.plugin.PageInfo;
 import com.my.user.model.UserModel;
 
 public interface UserService {

@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.my.common.plugin;
+package com.my.plugin;
 
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.builder.StaticSqlSource;

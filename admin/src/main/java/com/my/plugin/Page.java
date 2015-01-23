@@ -22,7 +22,7 @@
 	THE SOFTWARE.
 */
 
-package com.my.common.plugin;
+package com.my.plugin;
 
 import org.apache.ibatis.session.RowBounds;
 

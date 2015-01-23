@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ModuleModel">
+	<resultMap id="BaseResultMap" type="com.my.common.model.SysModules">
+		<id column="MODULE_ID" property="moduleId" jdbcType="VARCHAR" />
+		<result column="MODULE_NAME" property="moduleName" jdbcType="VARCHAR" />
+		<result column="MODULE_DESC" property="moduleDesc" jdbcType="VARCHAR" />
+		<result column="MODULE_TYPE" property="moduleType" jdbcType="VARCHAR" />
+		<result column="PARENT" property="parent" jdbcType="VARCHAR" />
+		<result column="MODULE_URL" property="moduleUrl" jdbcType="VARCHAR" />
+		<result column="LEVEL" property="level" jdbcType="VARCHAR" />
+		<result column="LEAF" property="leaf" jdbcType="VARCHAR" />
+		<result column="APPLICATION" property="application" jdbcType="VARCHAR" />
+		<result column="CONTROLLER" property="controller" jdbcType="VARCHAR" />
+		<result column="ENABLED" property="enabled" jdbcType="CHAR" />
+		<result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+	</resultMap>
+
+	<resultMap id="ModuleResultMap" type="com.my.module.model.ModuleModel" extends="BaseResultMap">
+		<collection property="roles" javaType="ArrayList" column="MODULE_ID" select="getRoles" />
+	</resultMap>
+
+	<resultMap type="com.my.common.model.SysRoles" id="roleMap">
+		<id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+		<result column="ENABLED" property="enabled" jdbcType="CHAR" />
+		<result column="IS_SYS" property="isSys" jdbcType="CHAR" />
+		<result column="MODULE_ID" property="moduleId" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryAll" resultMap="ModuleResultMap">
+		SELECT
+		*
+		FROM
+		sys_modules
+	</select>
+
+	<select id="getRoles" parameterType="java.lang.String" resultMap="roleMap">
+		SELECT
+		t1.ROLE_NAME,t1.ENABLED,t1.IS_SYS,t1.MODULE_ID
+		FROM
+		sys_roles t1
+		JOIN
+		sys_roles_moudles t2
+		ON
+		t1.ROLE_ID = t2.ROLE_ID
+		WHERE
+		t2.MODULE_ID =
+		#{moduleId}
+	</select>
+
+</mapper>

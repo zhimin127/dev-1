@@ -53,8 +53,8 @@ public class BaseDaoImpl<T> extends SqlSessionDaoSupport {
 		return getSqlSession().selectList(this.getClassName() + ".query", map);
 	}*/
 
-	public List<T> findAll(T t) {
-		return getSqlSession().selectList(this.getClassName() + ".queryAll", t);
+	public List<T> findAll() {
+		return getSqlSession().selectList(this.getClassName() + ".queryAll");
 	}
 
 	@Resource

@@ -12,12 +12,7 @@ import com.my.menu.service.MenuService;
 public class MenuServiceImpl extends BaseDaoImpl<MenuModel> implements MenuService {
 
 	public List<MenuModel> getMenuByUser(MenuModel model) {
-		return super.findAll(model);
-	}
-
-	@Override
-	public List<MenuModel> findAll(MenuModel t) {
-		return super.findAll(t);
+		return super.findAll();
 	}
 
 }
