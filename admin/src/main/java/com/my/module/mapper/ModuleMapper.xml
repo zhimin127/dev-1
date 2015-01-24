@@ -16,8 +16,12 @@
 		<result column="PRIORITY" property="priority" jdbcType="INTEGER" />
 	</resultMap>
 
-	<resultMap id="ModuleResultMap" type="com.my.module.model.ModuleModel" extends="BaseResultMap">
+	<resultMap id="ModuleRolesResultMap" type="com.my.module.model.ModuleModel" extends="BaseResultMap">
 		<collection property="roles" javaType="ArrayList" column="MODULE_ID" select="getRoles" />
+	</resultMap>
+
+	<resultMap id="NavModulesResultMap" type="com.my.module.model.ModuleModel" extends="BaseResultMap">
+		<collection property="subModules" javaType="ArrayList" column="MODULE_ID" select="getSubModules" />
 	</resultMap>
 
 	<resultMap type="com.my.common.model.SysRoles" id="roleMap">
@@ -28,8 +32,8 @@
 		<result column="IS_SYS" property="isSys" jdbcType="CHAR" />
 		<result column="MODULE_ID" property="moduleId" jdbcType="VARCHAR" />
 	</resultMap>
-	
-	<select id="queryAll" resultMap="ModuleResultMap">
+
+	<select id="queryAll" resultMap="ModuleRolesResultMap">
 		SELECT
 		*
 		FROM
@@ -50,4 +54,27 @@
 		#{moduleId}
 	</select>
 
+	<select id="queryByRole" resultMap="NavModulesResultMap" >
+		SELECT
+		*
+		FROM
+		sys_modules
+		WHERE
+		MODULE_ID ='818181ec4b028f87014b028f870e0000'
+	</select>
+
+	<select id="getSubModules" parameterType="HashMap">
+		SELECT
+		t1.*
+		FROM
+		sys_modules t1
+		JOIN
+		sys_roles_moudles t2
+		ON
+		t2.MODULE_ID = t1.MODULE_ID
+		WHERE
+		t2.ROLE_ID = #{roleId}
+		AND
+		t1.PARENT = #{moduleId}
+	</select>
 </mapper>

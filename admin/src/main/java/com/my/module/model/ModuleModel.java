@@ -8,6 +8,8 @@ import com.my.common.model.SysRoles;
 public class ModuleModel extends SysModules{
 
 	private List<SysRoles> roles;
+	
+	private List<ModuleModel> subModules;
 
 	public List<SysRoles> getRoles() {
 		return roles;
@@ -15,5 +17,13 @@ public class ModuleModel extends SysModules{
 
 	public void setRoles(List<SysRoles> roles) {
 		this.roles = roles;
+	}
+
+	public List<ModuleModel> getSubModules() {
+		return subModules;
+	}
+
+	public void setSubModules(List<ModuleModel> subModules) {
+		this.subModules = subModules;
 	}
 }
