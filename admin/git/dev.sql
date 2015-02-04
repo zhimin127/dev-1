@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50702
 File Encoding         : 65001
 
-Date: 2015-01-19 23:03:42
+Date: 2015-02-05 00:54:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -93,17 +93,17 @@ CREATE TABLE `sys_modules` (
 -- ----------------------------
 -- Records of sys_modules
 -- ----------------------------
-INSERT INTO `sys_modules` VALUES ('818181ec4b028f87014b028f870e0000', '导航', '导航', '0', null, null, '0', null, null, null, '1', '0');
-INSERT INTO `sys_modules` VALUES ('818181ec4b0291b6014b0291b6800000', '用户管理', '用户管理', '1', '818181ec4b028f87014b028f870e0000', null, '1', null, null, null, '1', '1');
-INSERT INTO `sys_modules` VALUES ('818181ec4b029314014b029314d70000', '角色管理', '角色管理', '1', '818181ec4b028f87014b028f870e0000', null, '1', null, null, null, '1', '2');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02941c014b02941cf10000', '资源管理', '资源管理', '1', '818181ec4b028f87014b028f870e0000', null, '1', null, null, null, '1', '3');
-INSERT INTO `sys_modules` VALUES ('818181ec4b029f70014b029f70150000', '用户列表', '用户列表', '2', '818181ec4b0291b6014b0291b6800000', null, '2', null, null, null, '1', '100');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02a02d014b02a02da30000', '新增用户', '新增用户', '2', '818181ec4b0291b6014b0291b6800000', null, '2', null, null, null, '1', '101');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02a1c6014b02a1c6620000', '角色列表', '角色列表', '2', '818181ec4b029314014b029314d70000', null, '2', null, null, null, '1', '103');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02a23f014b02a23fa70000', '新增角色', '新增角色', '2', '818181ec4b029314014b029314d70000', null, '2', null, null, null, '1', '104');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02a30e014b02a30e420000', '分配角色', '分配角色', '3', '818181ec4b029f70014b029f70150000', null, '2', null, null, null, '1', '105');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02a7be014b02a7be280000', '资源列表', '资源列表', '2', '818181ec4b02941c014b02941cf10000', null, '2', null, null, null, '1', '107');
-INSERT INTO `sys_modules` VALUES ('818181ec4b02a812014b02a812fb0000', '添加资源', '添加资源', '2', '818181ec4b02941c014b02941cf10000', null, '2', null, null, null, '1', '108');
+INSERT INTO `sys_modules` VALUES ('818181ec4b028f87014b028f870e0000', '导航', '导航', '0', null, 'NAVIGATION', '0', null, null, null, '1', '0');
+INSERT INTO `sys_modules` VALUES ('818181ec4b0291b6014b0291b6800000', '用户管理', '用户管理', '1', '818181ec4b028f87014b028f870e0000', 'user', '1', null, null, null, '1', '1');
+INSERT INTO `sys_modules` VALUES ('818181ec4b029314014b029314d70000', '角色管理', '角色管理', '1', '818181ec4b028f87014b028f870e0000', '/role', '1', null, null, null, '1', '2');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02941c014b02941cf10000', '资源管理', '资源管理', '1', '818181ec4b028f87014b028f870e0000', 'module', '1', null, null, null, '1', '3');
+INSERT INTO `sys_modules` VALUES ('818181ec4b029f70014b029f70150000', '用户列表', '用户列表', '2', '818181ec4b0291b6014b0291b6800000', 'user/', '2', null, null, null, '1', '100');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a02d014b02a02da30000', '新增用户', '新增用户', '2', '818181ec4b0291b6014b0291b6800000', 'user/new', '2', null, null, null, '1', '101');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a1c6014b02a1c6620000', '角色列表', '角色列表', '2', '818181ec4b029314014b029314d70000', 'role/', '2', null, null, null, '1', '103');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a23f014b02a23fa70000', '新增角色', '新增角色', '2', '818181ec4b029314014b029314d70000', 'role/new', '2', null, null, null, '1', '104');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a30e014b02a30e420000', '分配角色', '分配角色', '3', '818181ec4b029f70014b029f70150000', 'user/role', '2', null, null, null, '1', '105');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a7be014b02a7be280000', '资源列表', '资源列表', '2', '818181ec4b02941c014b02941cf10000', 'module/', '2', null, null, null, '1', '107');
+INSERT INTO `sys_modules` VALUES ('818181ec4b02a812014b02a812fb0000', '添加资源', '添加资源', '2', '818181ec4b02941c014b02941cf10000', 'module/new', '2', null, null, null, '1', '108');
 
 -- ----------------------------
 -- Table structure for sys_resources
@@ -115,6 +115,7 @@ CREATE TABLE `sys_resources` (
   `RESOURCE_NAME` varchar(255) DEFAULT NULL,
   `RESOURCE_DESC` varchar(255) DEFAULT NULL,
   `RESOURCE_PATH` varchar(255) DEFAULT NULL,
+  `PARENT_ID` varchar(32) DEFAULT NULL COMMENT '父资源ID',
   `PRIORITY` int(11) DEFAULT NULL,
   `ENABLED` char(1) DEFAULT NULL,
   `IS_SYS` char(1) DEFAULT NULL,
@@ -127,7 +128,7 @@ CREATE TABLE `sys_resources` (
 -- ----------------------------
 -- Records of sys_resources
 -- ----------------------------
-INSERT INTO `sys_resources` VALUES ('818181ec4b027591014b027591ad0000', '0', '导航', null, '#', '0', '1', '1', null);
+INSERT INTO `sys_resources` VALUES ('818181ec4b027591014b027591ad0000', '0', 'NAVIGATION', '导航', '#', null, '0', '1', '1', null);
 
 -- ----------------------------
 -- Table structure for sys_roles
@@ -170,10 +171,10 @@ CREATE TABLE `sys_roles_authorities` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sys_roles_moudles
+-- Table structure for sys_roles_modules
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_roles_moudles`;
-CREATE TABLE `sys_roles_moudles` (
+DROP TABLE IF EXISTS `sys_roles_modules`;
+CREATE TABLE `sys_roles_modules` (
   `ID` varchar(32) NOT NULL,
   `MODULE_ID` varchar(32) NOT NULL,
   `ROLE_ID` varchar(32) NOT NULL,
@@ -185,8 +186,13 @@ CREATE TABLE `sys_roles_moudles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of sys_roles_moudles
+-- Records of sys_roles_modules
 -- ----------------------------
+INSERT INTO `sys_roles_modules` VALUES ('1', '818181ec4b028f87014b028f870e0000', '818181ec4ad85c9a014ad85c9ad60000');
+INSERT INTO `sys_roles_modules` VALUES ('2', '818181ec4b0291b6014b0291b6800000', '818181ec4ad85da7014ad85da78b0000');
+INSERT INTO `sys_roles_modules` VALUES ('3', '818181ec4b029314014b029314d70000', '818181ec4ad85da7014ad85da78b0000');
+INSERT INTO `sys_roles_modules` VALUES ('4', '818181ec4b02941c014b02941cf10000', '818181ec4ad85da7014ad85da78b0000');
+INSERT INTO `sys_roles_modules` VALUES ('5', '818181ec4b0291b6014b0291b6800000', '818181ec4ad85ebd014ad85ebd2b0000');
 
 -- ----------------------------
 -- Table structure for sys_users
