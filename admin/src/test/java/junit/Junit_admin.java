@@ -1,6 +1,5 @@
 package junit;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +24,6 @@ import com.my.plugin.PageInfo;
 import com.my.resource.service.ResourceService;
 import com.my.role.service.RoleService;
 import com.my.user.service.UserService;
-import com.my.utils.CalendarUtil;
-import com.my.utils.MD5;
 import com.my.utils.UUIDGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,7 +31,7 @@ import com.my.utils.UUIDGenerator;
 public class Junit_admin {
 
 	protected final Log logger = LogFactory.getLog(getClass());
-	
+
 	// @Autowired
 	private RoleService roleService;
 	// @Autowired
@@ -43,19 +40,6 @@ public class Junit_admin {
 	Map<String, Object> result;
 	Gson gson;
 	List<?> list;
-
-	// @Test
-	public void uuid() {
-		System.out.println(UUIDGenerator.generate());
-	}
-
-	// @Test
-	public void calendar() {
-		List<Date> list = CalendarUtil.getDateSection();
-		for (Date date : list) {
-			System.out.println(CalendarUtil.getLongDate(date));
-		}
-	}
 
 	// @Test
 	public void menu() {
@@ -68,9 +52,10 @@ public class Junit_admin {
 
 	}
 
-	//@Autowired
+	// @Autowired
 	private UserService userService;
-	//@Test
+
+	// @Test
 	public void userRoles() {
 		SysUsers user = userService.findByName("abc");
 		System.out.println(json(user));
@@ -113,9 +98,10 @@ public class Junit_admin {
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 
-	//@Autowired
+	// @Autowired
 	private ResourceService resourcesService;
-	//@Test
+
+	// @Test
 	public void addResources() {
 		SysResources resource = new SysResources();
 		resource.setResourceId(UUIDGenerator.generate());
@@ -127,11 +113,11 @@ public class Junit_admin {
 		resourcesService.sava(resource);
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
-	
-	
+
 	@Autowired
 	private ModuleService moduleService;
-	//@Test
+
+	// @Test
 	public void addModule() {
 		SysModules module = new SysModules();
 		module.setModuleId(UUIDGenerator.generate());
@@ -144,19 +130,10 @@ public class Junit_admin {
 		moduleService.sava(module);
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
-	@Test
-	public void modules(){
-		logger.info(json(moduleService.findAll()));
-	}
 
-	// @Test
-	public void md5() {
-		String s1 = "abc";
-		System.out.println("原始：" + s1);
-		System.out.println("MD5后：" + MD5.encode(s1));
-		System.out.println("MD5后再加密：" + MD5.KL(MD5.encode(s1)));
-		System.out.println("解密为MD5后的：" + MD5.JM(MD5.KL(MD5.encode(s1))));
-		System.out.println("解密为MD5后的值：" + MD5.JM(MD5.JM(s1)));// 一次加密两次解密
+	@Test
+	public void modules() {
+		logger.info(json(moduleService.findAll()));
 	}
 
 	public String json(Object object) {
