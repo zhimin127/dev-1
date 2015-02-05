@@ -27,19 +27,19 @@ import com.my.user.service.UserService;
 import com.my.utils.UUIDGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:applicationContext-mvc.xml", "classpath:applicationContext-base.xml" })
+@ContextConfiguration(locations = { "classpath:applicationContext.xml",
+		"classpath:applicationContext-mvc.xml",
+		"classpath:applicationContext-base.xml" })
 public class Junit_admin {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	// @Autowired
-	private RoleService roleService;
-	// @Autowired
-	private MenuService menuService;
-
 	Map<String, Object> result;
 	Gson gson;
 	List<?> list;
+
+	// @Autowired
+	private MenuService menuService;
 
 	// @Test
 	public void menu() {
@@ -80,6 +80,9 @@ public class Junit_admin {
 		System.out.println(json(page.getList()));
 	}
 
+	// @Autowired
+	private RoleService roleService;
+
 	// @Test
 	public void role() {
 		SysRoles role = new SysRoles();
@@ -89,12 +92,13 @@ public class Junit_admin {
 		role.setEnabled("1");
 		role.setIsSys("0");
 		roleService.save(role);
-		// role = service.findByNameAndPassword("abc", "abc");
+		// role = roleService.findByNameAndPassword("abc", "abc");
 	}
 
 	// @Test
 	public void addUserRole() {
-		roleService.addUserRole("818181ec4ad46274014ad46274080000", "818181ec4ad85c9a014ad85c9ad60000");
+		roleService.addUserRole("818181ec4ad46274014ad46274080000",
+				"818181ec4ad85c9a014ad85c9ad60000");
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 

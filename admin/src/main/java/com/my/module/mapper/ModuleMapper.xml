@@ -42,12 +42,11 @@
 		FROM
 		sys_roles t1
 		JOIN
-		sys_roles_moudles t2
+		sys_roles_modules t2
 		ON
 		t1.ROLE_ID = t2.ROLE_ID
 		WHERE
-		t2.MODULE_ID =
-		#{moduleId}
+		t2.MODULE_ID = #{moduleId,jdbcType=VARCHAR}
 	</select>
 
 </mapper>
