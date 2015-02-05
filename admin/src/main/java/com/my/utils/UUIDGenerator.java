@@ -29,6 +29,7 @@ public class UUIDGenerator implements Serializable{
         int ipadd;
         try {
             ipadd = IptoInt(InetAddress.getLocalHost().getAddress());
+            System.out.println(InetAddress.getLocalHost().getHostAddress());
         } catch (Exception e) {
             ipadd = 0;
         }

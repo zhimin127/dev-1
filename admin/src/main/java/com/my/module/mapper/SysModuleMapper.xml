@@ -28,7 +28,7 @@
 		<result column="IS_SYS" property="isSys" jdbcType="CHAR" />
 		<result column="MODULE_ID" property="moduleId" jdbcType="VARCHAR" />
 	</resultMap>
-	
+
 	<select id="queryAll" resultMap="ModuleResultMap">
 		SELECT
 		*

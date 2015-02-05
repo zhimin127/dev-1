@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SysResource">
-	<resultMap id="BaseResultMap" type="com.my.common.model.SysResources">
-		<id column="RESOURCE_ID" jdbcType="VARCHAR" property="resourceId" />
-		<result column="RESOURCE_TYPE" jdbcType="VARCHAR" property="resourceType" />
-		<result column="RESOURCE_NAME" jdbcType="VARCHAR" property="resourceName" />
-		<result column="RESOURCE_DESC" jdbcType="VARCHAR" property="resourceDesc" />
-		<result column="RESOURCE_PATH" jdbcType="VARCHAR" property="resourcePath" />
-		<result column="PRIORITY" jdbcType="INTEGER" property="priority" />
-		<result column="ENABLED" jdbcType="CHAR" property="enabled" />
-		<result column="IS_SYS" jdbcType="CHAR" property="isSys" />
-		<result column="MODULE_ID" jdbcType="VARCHAR" property="moduleId" />
-	</resultMap>
 
-	<resultMap id="ResourceResultMap" type="com.my.resource.model.SysResource" extends="BaseResultMap">
-		<result column="STYLE_NAME" jdbcType="VARCHAR" property="style" />
-		<result column="ICON_NAME" jdbcType="VARCHAR" property="icon" />
+	<resultMap id="ResourceResultMap" type="com.my.resource.model.SysResource" extends="com.my.common.dao.SysResourcesMapper.BaseResultMap">
+		<collection property="styles" javaType="ArrayList" column="RESOURCE_ID" select="getStyles" />
 	</resultMap>
 
 	<select id="queryAll" resultMap="ResourceResultMap">
 		SELECT
-		t1.RESOURCE_ID,t1.RESOURCE_TYPE,t1.RESOURCE_NAME,t1.RESOURCE_DESC,
-		t1.RESOURCE_PATH,t1.PRIORITY,t1.ENABLED,t1.IS_SYS,t1.MODULE_ID,
-		t2.STYLE_NAME,t2.ICON_NAME
+		<include refid="com.my.common.dao.SysResourcesMapper.Base_Column_List" />
 		FROM
-		sys_resources t1
-		JOIN sys_resources_styles t3 ON t3.RESOURCE_ID = t1.RESOURCE_ID
-		JOIN sys_styles t2 ON t2.STYLE_ID = t3.STYLE_ID
-
+		sys_resources
+		<![CDATA[
+		WHERE
+		RESOURCE_PATH IS NOT NULL
+		AND
+		RESOURCE_PATH <> '#'
+		]]>
+	</select>
+	<select id="getStyles" parameterType="java.lang.String" resultMap="com.my.common.dao.SysStylesMapper.BaseResultMap">
+		SELECT
+		t1.STYLE_NAME,t1.ICON_NAME
+		FROM
+		sys_styles t1
+		JOIN
+		sys_resources_styles t2
+		ON
+		t1.STYLE_ID = t2.STYLE_ID
+		WHERE
+		t2.RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
 	</select>
 
 </mapper>

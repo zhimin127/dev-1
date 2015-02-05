@@ -1,26 +1,19 @@
 package com.my.resource.model;
 
+import java.util.List;
+
 import com.my.common.model.SysResources;
+import com.my.common.model.SysStyles;
 
 public class SysResource extends SysResources {
 
-	private String icon;
-	private String style;
+	private List<SysStyles> styles;
 
-	public String getIcon() {
-		return icon;
+	public List<SysStyles> getStyles() {
+		return styles;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setStyles(List<SysStyles> styles) {
+		this.styles = styles;
 	}
-
-	public String getStyle() {
-		return style;
-	}
-
-	public void setStyle(String style) {
-		this.style = style;
-	}
-
 }
