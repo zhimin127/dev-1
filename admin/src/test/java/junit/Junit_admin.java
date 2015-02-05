@@ -118,7 +118,7 @@ public class Junit_admin {
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 
-	@Autowired
+	//@Autowired
 	private ModuleService moduleService;
 
 	// @Test
@@ -135,9 +135,17 @@ public class Junit_admin {
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 
-	@Test
+	//@Test
 	public void modules() {
 		logger.info(json(moduleService.findAll()));
+	}
+	
+	@Autowired
+	private ResourceService resourceService;
+	@Test
+	public void resources(){
+		list = resourceService.findAuthAll();
+		System.out.println(json(list));
 	}
 
 	public String json(Object object) {

@@ -5,7 +5,7 @@ import java.util.List;
 import com.my.common.model.SysModules;
 import com.my.common.model.SysRoles;
 
-public class ModuleModel extends SysModules{
+public class SysModule extends SysModules{
 
 	private List<SysRoles> roles;
 

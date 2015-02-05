@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.my.common.dao.SysModulesMapper;
 import com.my.common.model.SysModules;
 import com.my.module.dao.ModuleDao;
-import com.my.module.model.ModuleModel;
+import com.my.module.model.SysModule;
 import com.my.module.service.ModuleService;
 
 @Service("moduleService")
@@ -27,7 +27,7 @@ public class ModuleServiceImpl implements ModuleService {
 		sysModulesMapper.insert(module);
 	}
 
-	public List<ModuleModel> findAll() {
+	public List<SysModule> findAll() {
 		logger.info("============================== find all modules...");
 		return moduleDao.findAll();
 	}

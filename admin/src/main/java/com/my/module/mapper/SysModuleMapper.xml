@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ModuleModel">
+<mapper namespace="SysModule">
 	<resultMap id="BaseResultMap" type="com.my.common.model.SysModules">
 		<id column="MODULE_ID" property="moduleId" jdbcType="VARCHAR" />
 		<result column="MODULE_NAME" property="moduleName" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
 		<result column="PRIORITY" property="priority" jdbcType="INTEGER" />
 	</resultMap>
 
-	<resultMap id="ModuleResultMap" type="com.my.module.model.ModuleModel" extends="BaseResultMap">
+	<resultMap id="ModuleResultMap" type="com.my.module.model.SysModule" extends="BaseResultMap">
 		<collection property="roles" javaType="ArrayList" column="MODULE_ID" select="getRoles" />
 	</resultMap>
 

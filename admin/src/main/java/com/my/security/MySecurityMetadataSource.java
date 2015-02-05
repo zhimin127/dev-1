@@ -17,7 +17,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
 import com.my.common.model.SysRoles;
-import com.my.module.model.ModuleModel;
+import com.my.module.model.SysModule;
 import com.my.module.service.ModuleService;
 
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
@@ -58,8 +58,8 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 	private void loadSysResources() {
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-			List<ModuleModel> resources = moduleService.findAll();
-			for (ModuleModel resource : resources) {
+			List<SysModule> resources = moduleService.findAll();
+			for (SysModule resource : resources) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
 				for (SysRoles role : resource.getRoles()) {
 					ConfigAttribute configAttribute = new SecurityConfig("ROLE_" + role.getRoleName());
