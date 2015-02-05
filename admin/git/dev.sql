@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50702
 File Encoding         : 65001
 
-Date: 2015-02-05 00:54:03
+Date: 2015-02-06 01:34:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -131,6 +131,26 @@ CREATE TABLE `sys_resources` (
 INSERT INTO `sys_resources` VALUES ('818181ec4b027591014b027591ad0000', '0', 'NAVIGATION', '导航', '#', null, '0', '1', '1', null);
 
 -- ----------------------------
+-- Table structure for sys_resources_styles
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_resources_styles`;
+CREATE TABLE `sys_resources_styles` (
+  `ID` varchar(32) NOT NULL,
+  `RESOURCE_ID` varchar(32) DEFAULT NULL,
+  `STYLE_ID` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `RESOURCE_ID` (`RESOURCE_ID`),
+  KEY `FK_SYS_STYLE_REFERENCE_SYS_STYLE` (`STYLE_ID`),
+  CONSTRAINT `FK_SYS_STYLE_REFERENCE_SYS_RESOURCE` FOREIGN KEY (`RESOURCE_ID`) REFERENCES `sys_resources` (`RESOURCE_ID`),
+  CONSTRAINT `FK_SYS_STYLE_REFERENCE_SYS_STYLE` FOREIGN KEY (`STYLE_ID`) REFERENCES `sys_styles` (`STYLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_resources_styles
+-- ----------------------------
+INSERT INTO `sys_resources_styles` VALUES ('1', '818181ec4b027591014b027591ad0000', '1');
+
+-- ----------------------------
 -- Table structure for sys_roles
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_roles`;
@@ -193,6 +213,28 @@ INSERT INTO `sys_roles_modules` VALUES ('2', '818181ec4b0291b6014b0291b6800000',
 INSERT INTO `sys_roles_modules` VALUES ('3', '818181ec4b029314014b029314d70000', '818181ec4ad85da7014ad85da78b0000');
 INSERT INTO `sys_roles_modules` VALUES ('4', '818181ec4b02941c014b02941cf10000', '818181ec4ad85da7014ad85da78b0000');
 INSERT INTO `sys_roles_modules` VALUES ('5', '818181ec4b0291b6014b0291b6800000', '818181ec4ad85ebd014ad85ebd2b0000');
+
+-- ----------------------------
+-- Table structure for sys_styles
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_styles`;
+CREATE TABLE `sys_styles` (
+  `STYLE_ID` varchar(32) NOT NULL,
+  `STYLE_NAME` varchar(55) DEFAULT NULL,
+  `STYLE_DESC` varchar(255) DEFAULT NULL,
+  `ICON_NAME` varchar(55) DEFAULT NULL,
+  `ICON_DESC` varchar(255) DEFAULT NULL,
+  `REMARK` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`STYLE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_styles
+-- ----------------------------
+INSERT INTO `sys_styles` VALUES ('1', 'nav-header', 'NAVIGATION', null, null, null);
+INSERT INTO `sys_styles` VALUES ('2', null, 'HOME', 'icon-home', null, null);
+INSERT INTO `sys_styles` VALUES ('3', null, 'USER', 'icon-user', null, null);
+INSERT INTO `sys_styles` VALUES ('4', null, 'SYS', 'icon-sys', null, null);
 
 -- ----------------------------
 -- Table structure for sys_users
