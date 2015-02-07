@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysStyleMapper">
+	
+	<select id="findByResourceId" parameterType="java.lang.String" resultMap="com.my.common.dao.SysStylesMapper.BaseResultMap">
+		SELECT
+		t1.STYLE_CLASS,t1.ICON_NAME
+		FROM
+		sys_styles t1
+		JOIN
+		sys_resources_styles t2
+		ON
+		t1.STYLE_ID = t2.STYLE_ID
+		WHERE
+		t2.RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

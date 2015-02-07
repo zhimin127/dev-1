@@ -7,10 +7,22 @@ import com.my.common.model.SysRoles;
 import com.my.common.model.SysStyles;
 
 public class SysResource extends SysResources {
+	
+	private String roleId;
 
 	private List<SysRoles> roles;
 	
 	private List<SysStyles> styles;
+	
+	private List<SysResource> subResources;
+
+	public List<SysResource> getSubResources() {
+		return subResources;
+	}
+
+	public void setSubResources(List<SysResource> subResources) {
+		this.subResources = subResources;
+	}
 
 	public List<SysStyles> getStyles() {
 		return styles;
@@ -26,5 +38,13 @@ public class SysResource extends SysResources {
 
 	public void setRoles(List<SysRoles> roles) {
 		this.roles = roles;
+	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 }

@@ -3,7 +3,7 @@
 <mapper namespace="SysUserMapper">
 	
 	<resultMap id="UserResultMap" type="com.my.user.model.SysUser" extends="com.my.common.dao.SysUsersMapper.BaseResultMap">
-		<collection property="roles" javaType="ArrayList" column="USER_ID" select="findRoles" />
+		<collection property="roles" javaType="ArrayList" column="USER_ID" select="SysRoleMapper.findByUserId" />
 	</resultMap>
 	
 	<select id="findByUsername" parameterType="java.lang.String" resultMap="UserResultMap">
@@ -14,19 +14,6 @@
 		<where>
 			USERNAME = #{username}
 		</where>
-	</select>
-	
-	<select id="findRoles" parameterType="java.lang.String" resultMap="com.my.common.dao.SysRolesMapper.BaseResultMap">
-		SELECT
-			t1.*
-		FROM
-			sys_roles t1
-		JOIN
-			sys_users_roles t2
-		ON
-			t1.ROLE_ID = t2.ROLE_ID
-		WHERE
-			t2.USER_ID = #{userId}
 	</select>
 	
 </mapper>

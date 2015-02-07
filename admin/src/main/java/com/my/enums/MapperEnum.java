@@ -7,7 +7,10 @@ package com.my.enums;
  *
  */
 public enum MapperEnum {
-	SYS_USER(0, "SysUser", ""), SYS_RESOURCE(1, "SysResource", "");
+	SYS_USER(0, "SysUser", "1111111111111111111"),
+	SYS_RESOURCE(1, "SysResource", "22222222222"),
+	SYS_STYLE(2,"SysStyle","33333333"),
+	SYS_ROLE(1, "SysRole", "444444"),;
 
 	private Integer code;
 	private String mapperName;

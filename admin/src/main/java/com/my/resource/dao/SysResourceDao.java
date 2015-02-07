@@ -9,4 +9,6 @@ public interface SysResourceDao extends BaseDao<SysResource> {
 
 	List<SysResource> findAllAuth();
 
+	List<SysResource> findNavResourceByRoleId(String roleId);
+
 }

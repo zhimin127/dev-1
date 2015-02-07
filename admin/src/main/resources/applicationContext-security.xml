@@ -24,9 +24,9 @@
 
 		<custom-filter ref="myAuthorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
 
-		<!-- Uncomment to limit the number of sessions a user can have -->
-		<session-management invalid-session-url="/timeout.html">
-			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		<!-- Uncomment to limit the number of sessions a user can have  invalid-session-url="/timeout.html" -->
+		<session-management>
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" expired-url="/timeout.html"/>
 		</session-management>
 
 	</http>

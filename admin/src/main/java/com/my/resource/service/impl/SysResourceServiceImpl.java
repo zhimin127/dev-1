@@ -33,4 +33,8 @@ public class SysResourceServiceImpl implements SysResourceService {
 		return sysResourceDao.findAllAuth();
 	}
 
+	public List<SysResource> getNavResourceByRoleId(String roleId) {
+		return sysResourceDao.findNavResourceByRoleId(roleId);
+	}
+
 }

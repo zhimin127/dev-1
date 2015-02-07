@@ -22,7 +22,7 @@ import com.my.menu.service.MenuService;
 import com.my.module.service.ModuleService;
 import com.my.plugin.PageInfo;
 import com.my.resource.service.SysResourceService;
-import com.my.role.service.RoleService;
+import com.my.role.service.SysRoleService;
 import com.my.style.service.SysStyleService;
 import com.my.user.service.SysUserService;
 import com.my.utils.JSONUtil;
@@ -40,13 +40,13 @@ public class Junit_admin {
 	@Test
 	public void run() {
 		//this.modifyUser();
-		this.getUser();
+		this.getResources();
 	}
 
 	// @Autowired
 	private MenuService menuService;
 
-	public void menu() {
+	public void getMenu() {
 		List<MenuModel> menus = menuService.getAll();
 		System.out.println(menus.size());
 		for (MenuModel menu : menus) {
@@ -71,7 +71,7 @@ public class Junit_admin {
 
 	public void getUser() {
 		SysUsers user = sysUserService.getByNameAndPassword("admin", "admin");
-		// user = sysUserService.getByUsername("admin");
+		 user = sysUserService.getByUsername("admin");
 		logger.info(JSONUtil.toJson(user));
 
 	}
@@ -94,9 +94,9 @@ public class Junit_admin {
 	}
 
 	// @Autowired
-	private RoleService roleService;
+	private SysRoleService roleService;
 
-	public void role() {
+	public void addRole() {
 		SysRoles role = new SysRoles();
 		role.setRoleId(UUIDGenerator.generate());
 		role.setRoleName("普通用户");
@@ -138,8 +138,8 @@ public class Junit_admin {
 		}
 	}
 
-	public void resources() {
-		list = sysResourcesService.getAllAuth();
+	public void getResources() {
+		list = sysResourcesService.getNavResourceByRoleId("818181ec4ad85c9a014ad85c9ad60000");
 		System.out.println(JSONUtil.toJson(list));
 	}
 

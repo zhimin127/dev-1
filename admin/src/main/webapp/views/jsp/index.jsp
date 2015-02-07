@@ -927,7 +927,7 @@
 
 <!-- JS -->
 <script src="static/js/jquery.js"></script> <!-- jQuery -->
-<script src="resources/js/my.nav.js"></script><!-- Navigation -->
+<script src="static/scripts/my.nav.js"></script><!-- Navigation -->
 <script src="static/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="static/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
 <script src="static/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->

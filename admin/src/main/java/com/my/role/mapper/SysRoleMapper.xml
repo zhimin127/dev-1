@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SysRoleMapper">
+
+
+	<insert id="insertUserRole" parameterType="HashMap">
+		insert into sys_users_roles (ID,ROLE_ID, USER_ID)
+		values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="findByUserId" parameterType="java.lang.String" resultMap="com.my.common.dao.SysRolesMapper.BaseResultMap">
+		SELECT
+		t1.*
+		FROM
+		sys_roles t1
+		JOIN
+		sys_users_roles t2
+		ON
+		t1.ROLE_ID = t2.ROLE_ID
+		WHERE
+		t2.USER_ID = #{userId}
+	</select>
+	
+	<select id="findByResourceId" parameterType="java.lang.String" resultMap="com.my.common.dao.SysRolesMapper.BaseResultMap">
+		SELECT
+		t1.ROLE_NAME,t1.ENABLED,t1.IS_SYS
+		FROM
+		sys_roles t1
+		JOIN
+		sys_roles_resources t2
+		ON
+		t1.ROLE_ID = t2.ROLE_ID
+		WHERE
+		t2.RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+	</select>
+</mapper>

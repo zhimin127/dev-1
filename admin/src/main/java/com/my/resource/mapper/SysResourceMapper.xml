@@ -3,11 +3,16 @@
 <mapper namespace="SysResourceMapper">
 
 	<resultMap id="ResourceResultMap" type="com.my.resource.model.SysResource" extends="com.my.common.dao.SysResourcesMapper.BaseResultMap">
-		<collection property="styles" javaType="ArrayList" column="RESOURCE_ID" select="findStyles" />
-		<collection property="roles" javaType="ArrayList" column="RESOURCE_ID" select="findRoles" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<collection property="subResources" javaType="ArrayList" column="{resourceId=RESOURCE_ID,roleId=ROLE_ID}" select="findSubResources" />
+		<collection property="styles" javaType="ArrayList" column="RESOURCE_ID" select="SysStyleMapper.findByResourceId" />
 	</resultMap>
 
-	<select id="findAllAuth" resultMap="ResourceResultMap">
+	<resultMap id="AuthResourceResultMap" type="com.my.resource.model.SysResource" extends="com.my.common.dao.SysResourcesMapper.BaseResultMap">
+		<collection property="roles" javaType="ArrayList" column="RESOURCE_ID" select="SysRoleMapper.findByResourceId" />
+	</resultMap>
+
+	<select id="findAllAuth" resultMap="AuthResourceResultMap">
 		SELECT
 		<include refid="com.my.common.dao.SysResourcesMapper.Base_Column_List" />
 		FROM
@@ -19,31 +24,51 @@
 		RESOURCE_PATH <> '#'
 		]]>
 	</select>
-	
-	<select id="findStyles" parameterType="java.lang.String" resultMap="com.my.common.dao.SysStylesMapper.BaseResultMap">
+
+	<select id="findNavResourceByRoleId" resultMap="ResourceResultMap" parameterType="java.lang.String">
 		SELECT
-		t1.STYLE_CLASS,t1.ICON_NAME
+		t1.RESOURCE_ID,
+		t1.RESOURCE_TYPE,
+		t1.RESOURCE_NAME,
+		t1.RESOURCE_DESC,
+		t1.RESOURCE_PATH,
+		t1.PRIORITY,
+		t1.ENABLED,
+		t1.IS_SYS,
+		t1.MODULE_ID,
+		t2.ROLE_ID
 		FROM
-		sys_styles t1
-		JOIN
-		sys_resources_styles t2
-		ON
-		t1.STYLE_ID = t2.STYLE_ID
+		sys_resources t1,sys_roles t2
 		WHERE
-		t2.RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+		t1.RESOURCE_TYPE = '0'
+		AND
+		t1.PRIORITY = 0
+		AND
+		t2.ROLE_ID = #{roleId}
 	</select>
-	
-	<select id="findRoles" parameterType="java.lang.String" resultMap="com.my.common.dao.SysRolesMapper.BaseResultMap">
+
+	<select id="findSubResources" parameterType="HashMap" resultMap="ResourceResultMap">
 		SELECT
-		t1.ROLE_NAME,t1.ENABLED,t1.IS_SYS
+		t1.RESOURCE_ID,
+		t1.RESOURCE_TYPE,
+		t1.RESOURCE_NAME,
+		t1.RESOURCE_DESC,
+		t1.RESOURCE_PATH,
+		t1.PRIORITY,
+		t1.ENABLED,
+		t1.IS_SYS,
+		t1.MODULE_ID,
+		t2.ROLE_ID
 		FROM
-		sys_roles t1
+		sys_resources t1
 		JOIN
 		sys_roles_resources t2
 		ON
-		t1.ROLE_ID = t2.ROLE_ID
+		t1.RESOURCE_ID = t2.RESOURCE_ID
 		WHERE
-		t2.RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+		t1.PARENT_ID = #{resourceId}
+		AND
+		t2.ROLE_ID = #{roleId}
 	</select>
 
 </mapper>

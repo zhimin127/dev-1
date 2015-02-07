@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.my.common.dao.SysRolesMapper;
 import com.my.common.model.SysRoles;
-import com.my.role.service.RoleService;
+import com.my.role.service.SysRoleService;
 import com.my.user.dao.SysUserDao;
 import com.my.utils.UUIDGenerator;
 
 @Service("roleService")
-public class RoleServiceImpl implements RoleService {
+public class SysRoleServiceImpl implements SysRoleService {
 
 	@Autowired
 	private SysRolesMapper sysRolesMapper;

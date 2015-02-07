@@ -2,7 +2,7 @@ package com.my.role.service;
 
 import com.my.common.model.SysRoles;
 
-public interface RoleService {
+public interface SysRoleService {
 	
 	/**
 	 * 

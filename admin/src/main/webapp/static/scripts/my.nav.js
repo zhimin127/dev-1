@@ -7,7 +7,7 @@ var _menus = null;
 // 获得菜单
 function getMenus(){
 	$.ajax({
-		url : "menu",
+		url : "menu/nav",
 		type : "post",
 		async : false,
 		success : function(data) {
@@ -20,34 +20,34 @@ function getMenus(){
 function initMacSidebar(){
 	sidebar = jQuery(".sidebar");
 	if (typeof _menus != 'undefined') {
-		var title = "<div class='sidebar-dropdown'><a href='#'>" + _menus.name + "</a></div>";
+		var title = "<div class='sidebar-dropdown'><a href='#'>" + _menus.resourceName + "</a></div>";
 		var nav = '<ul id="nav">'
-		jQuery.each(_menus.subMenu, function(i, n) {
+		jQuery.each(_menus.subResources, function(i, n) {
 			var menu = '<li class="' + n.style + '">';
-			if (n.url == null || n.url == '') {
-				menu += n.name;
+			if (n.resourcePath == null || n.resourcePath == '') {
+				menu += n.resourceName;
 			} else {
-				if(n.url=="#") n.url = 'javascript:void(0);'
+				if(n.resourcePath=="#") n.resourcePath = 'javascript:void(0);'
 				var _class = '';
 				if(typeof menuPos != 'undefined' && i == menuPos){
 					_class = ' class="open"'
 				}
-				menu += '<a href="' + n.url + '"'+_class+'>';
+				menu += '<a href="' + n.resourcePath + '"'+_class+'>';
 				if (n.icon != null && n.icon != '') {
 					menu += '<i class="' + n.icon + '"></i>';
 				}
-				menu +=  n.name + '';
+				menu +=  n.resourceName + '';
 			}
 			var subMenu = '</a>';
-			if (n.subMenu.length > 0) {
+			if (n.subResources.length > 0) {
 				subMenu = '<span class="pull-right"><i class="icon-chevron-right"></i></span></a>';
 				if(typeof subMenuPos != 'undefined' && i == menuPos){
 					subMenu += '<ul style="display: block;">';
 				}else{
 					subMenu += '<ul>'
 				}
-				jQuery.each(n.subMenu, function(j, o) {
-					subMenu += '<li><a ref="' + o.id + '" href="' + o.url + '" rel="" ><span class="">' + o.name + '</span></a></li>';
+				jQuery.each(n.subResources, function(j, o) {
+					subMenu += '<li><a ref="' + o.id + '" href="' + o.resourcePath + '" rel="" ><span class="">' + o.resourceName + '</span></a></li>';
 				})
 				subMenu += '</ul>';
 			}
