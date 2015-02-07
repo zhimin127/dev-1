@@ -36,11 +36,15 @@ public class Junit_admin {
 
 	Map<String, Object> result;
 	List<?> list;
+	
+	@Test
+	public void run(){
+		this.findUser();
+	}
 
 	// @Autowired
 	private MenuService menuService;
 
-	// @Test
 	public void menu() {
 		List<MenuModel> menus = menuService.findAll();
 		System.out.println(menus.size());
@@ -52,9 +56,8 @@ public class Junit_admin {
 	}
 
 	@Autowired
-	private SysUserService userService;
+	private SysUserService sysUserService;
 
-	@Test
 	public void addUser() {
 		SysUsers user = new SysUsers();
 		user.setUserId(UUID.randomUUID().toString());
@@ -62,30 +65,29 @@ public class Junit_admin {
 		user.setPassword("abc");
 		user.setName("管理员");
 		user.setEnabled("1");
-		userService.save(user);
-	}
-	@Test
-	public void findUser(){
-		SysUsers user = userService.findByNameAndPassword("abc", "abc");
-		System.out.println(user.getCreateTime());
+		sysUserService.save(user);
 	}
 
-	// @Test
+	public void findUser() {
+		SysUsers user = sysUserService.findByNameAndPassword("admin", "admin");
+		//user = sysUserService.findByUsername("admin");
+		logger.info(JSONUtil.toJson(user));
+		
+	}
+
 	public void users() {
-		PageInfo<SysUsers> page = userService.getPage(1, 10);
+		PageInfo<SysUsers> page = sysUserService.getPage(1, 10);
 		System.out.println(JSONUtil.toJson(page.getList()));
 	}
 
-
-	// @Test
 	public void userRoles() {
-		SysUsers user = userService.findByName("abc");
+		SysUsers user = sysUserService.findByUsername("abc");
 		System.out.println(JSONUtil.toJson(user));
 	}
+
 	// @Autowired
 	private RoleService roleService;
 
-	// @Test
 	public void role() {
 		SysRoles role = new SysRoles();
 		role.setRoleId(UUIDGenerator.generate());
@@ -97,7 +99,6 @@ public class Junit_admin {
 		// role = roleService.findByNameAndPassword("abc", "abc");
 	}
 
-	// @Test
 	public void addUserRole() {
 		roleService.addUserRole("818181ec4ad46274014ad46274080000", "818181ec4ad85c9a014ad85c9ad60000");
 		// role = service.findByNameAndPassword("abc", "abc");
@@ -109,7 +110,6 @@ public class Junit_admin {
 	public final static String[] RESOURCE_TYPES = { "0", "1", "2", "3", "4" };
 	public final static String[] BASE_RESOURCES = { "导航", "首页", "用户管理", "角色管理", "资源管理" };// ,"用户列表"
 
-	// @Test
 	public void addResource() {
 		String NAVIGATION_ID = "";
 		for (int i = 0; i < BASE_RESOURCES.length; i++) {
@@ -130,16 +130,14 @@ public class Junit_admin {
 		}
 	}
 
-	// @Test
 	public void resources() {
-		list = sysResourcesService.findAll();
+		list = sysResourcesService.findAllAuth();
 		System.out.println(JSONUtil.toJson(list));
 	}
 
 	// @Autowired
 	private ModuleService moduleService;
 
-	// @Test
 	public void addModule() {
 		SysModules module = new SysModules();
 		module.setModuleId(UUIDGenerator.generate());
@@ -153,7 +151,6 @@ public class Junit_admin {
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 
-	// @Test
 	public void modules() {
 		logger.info(JSONUtil.toJson(moduleService.findAll()));
 	}
@@ -161,7 +158,6 @@ public class Junit_admin {
 	@Autowired
 	private SysStyleService sysStyleService;
 
-	// @Test
 	public void addStyle() {
 		for (int i = 0; i < BASE_RESOURCES.length; i++) {
 			SysStyles style = new SysStyles();

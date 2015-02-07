@@ -11,5 +11,5 @@ public interface SysResourceService {
 	
 	List<SysResources> findAll();
 
-	List<SysResource> findAuthAll();
+	List<SysResource> findAllAuth();
 }

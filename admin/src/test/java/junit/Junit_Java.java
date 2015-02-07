@@ -4,15 +4,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
+import com.my.enums.MapperEnum;
 import com.my.utils.CalendarUtil;
 import com.my.utils.MD5;
 import com.my.utils.UUIDGenerator;
 
 public class Junit_Java {
-
+	
+	protected final Log logger = LogFactory.getLog(getClass());
 	@Test
+	public void enums(){
+		logger.debug(MapperEnum.SYS_RESOURCE.getMapperName());
+	}
+	//@Test
 	public void uuid() {
 		for (int i = 0; i < 100; i++) {
 			System.out.println(UUID.randomUUID());

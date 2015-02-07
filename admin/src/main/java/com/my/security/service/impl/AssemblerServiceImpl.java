@@ -27,7 +27,7 @@ public class AssemblerServiceImpl implements AssemblerService {
 
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		for (SysRoles role : userAccount.getRoles()) {
-			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+			authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
 		}
 
 		return new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);

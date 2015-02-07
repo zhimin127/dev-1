@@ -17,8 +17,8 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
 import com.my.common.model.SysRoles;
-import com.my.module.model.SysModule;
-import com.my.module.service.ModuleService;
+import com.my.resource.model.SysResource;
+import com.my.resource.service.SysResourceService;
 
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
@@ -27,7 +27,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
 	@Autowired
-	private ModuleService moduleService;
+	private SysResourceService sysResourcesService;
 
 	public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 		logger.info("====================== 3.返回所请求资源所需要的权限 !======================");
@@ -58,14 +58,14 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 	private void loadSysResources() {
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-			List<SysModule> resources = moduleService.findAll();
-			for (SysModule resource : resources) {
+			List<SysResource> resources = sysResourcesService.findAllAuth();
+			for (SysResource resource : resources) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
 				for (SysRoles role : resource.getRoles()) {
 					ConfigAttribute configAttribute = new SecurityConfig("ROLE_" + role.getRoleName());
 					configAttributes.add(configAttribute);
 				}
-				resourceMap.put(resource.getModuleUrl(), configAttributes);
+				resourceMap.put(resource.getResourcePath(), configAttributes);
 			}
 			logger.info("资源[ " + resourceMap + " ]");
 		}

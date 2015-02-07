@@ -15,7 +15,7 @@ public interface SysUserService {
 
 	SysUsers findByNameAndPassword(String username, String password);
 
-	SysUser findByName(String userName);
+	SysUser findByUsername(String userName);
 
 	List<MenuModel> getMenuByUser(SysUsers user);
 

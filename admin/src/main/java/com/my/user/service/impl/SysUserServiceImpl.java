@@ -38,7 +38,7 @@ public class SysUserServiceImpl implements SysUserService {
 		return null;
 	}
 
-	public SysUser findByName(String username) {
+	public SysUser findByUsername(String username) {
 		if (username == null) {
 			return null;
 		}

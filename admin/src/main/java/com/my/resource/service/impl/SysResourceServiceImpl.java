@@ -29,8 +29,8 @@ public class SysResourceServiceImpl implements SysResourceService {
 		return sysResourcesMapper.selectByExample(example);
 	}
 
-	public List<SysResource> findAuthAll() {
-		return sysResourceDao.findAll();
+	public List<SysResource> findAllAuth() {
+		return sysResourceDao.findAllAuth();
 	}
 
 }
