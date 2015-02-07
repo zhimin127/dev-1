@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.my.common.base.impl.BaseDaoImpl;
 import com.my.menu.model.MenuModel;
 import com.my.menu.service.MenuService;
 
 @Service("menuService")
-public class MenuServiceImpl extends BaseDaoImpl<MenuModel> implements MenuService {
+public class MenuServiceImpl implements MenuService {
 
 	public List<MenuModel> getMenuByUser(MenuModel model) {
-		return super.findAll();
+		return null;
+	}
+
+	public List<MenuModel> getAll() {
+		return null;
 	}
 
 }

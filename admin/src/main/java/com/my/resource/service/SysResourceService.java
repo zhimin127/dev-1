@@ -9,7 +9,7 @@ public interface SysResourceService {
 
 	void save(SysResources resource);
 	
-	List<SysResources> findAll();
+	List<SysResources> getAll();
 
-	List<SysResource> findAllAuth();
+	List<SysResource> getAllAuth();
 }

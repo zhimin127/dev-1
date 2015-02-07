@@ -9,6 +9,6 @@ public interface ModuleService {
 
 	void sava(SysModules module);
 
-	List<SysModule> findAll();
+	List<SysModule> getAll();
 
 }

@@ -15,4 +15,5 @@
 	<bean id="staticPath" class="java.lang.String">
 		<constructor-arg type="java.lang.String" value="${my.http.staticPath}" />
 	</bean>
+	
 </beans>

@@ -27,7 +27,7 @@ public class ModuleServiceImpl implements ModuleService {
 		sysModulesMapper.insert(module);
 	}
 
-	public List<SysModule> findAll() {
+	public List<SysModule> getAll() {
 		logger.info("============================== find all modules...");
 		return moduleDao.findAll();
 	}

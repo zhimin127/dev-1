@@ -19,7 +19,7 @@
 		<!-- <access-denied-handler error-page="/403" /> -->
 		<form-login login-page="/login.html" authentication-failure-url="/login.html" default-target-url="/index.html" login-processing-url="/login_check"
 			password-parameter="password" username-parameter="username" />
-		<logout logout-success-url="/logout.html" delete-cookies="JSESSIONID" />
+		<logout logout-success-url="/logout.html" delete-cookies="JSESSIONID" invalidate-session="true" />
 		<remember-me />
 
 		<custom-filter ref="myAuthorizationFilter" before="FILTER_SECURITY_INTERCEPTOR" />
@@ -31,10 +31,11 @@
 
 	</http>
 
-	<beans:bean id="userDetailService" class="com.my.security.UserDetailsServiceImpl" name="userDetailsService"/>
-	
+	<beans:bean id="userDetailService" class="com.my.security.UserDetailsServiceImpl" name="userDetailsService" />
+
 	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
 		<beans:property name="userDetailsService" ref="userDetailsService" />
+		<beans:property name="hideUserNotFoundExceptions" value="false" />
 	</beans:bean>
 
 	<beans:bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
@@ -44,15 +45,17 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	<beans:bean id="md5PasswordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 
 	<authentication-manager alias="myAuthenticationManager">
-		<authentication-provider user-service-ref="userDetailService" >
+		<authentication-provider user-service-ref="userDetailService">
 			<!-- <password-encoder ref="encoder" /> -->
-			<password-encoder ref="md5PasswordEncoder" />
+
+			<password-encoder hash="md5" base64="true">
+			<salt-source user-property="username" />
+			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>
-	
+
 	<!-- 认证过滤器：判断用户有没有访问特定资源的权限 -->
 	<beans:bean id="myAuthorizationFilter" class="com.my.security.MyAuthorizationFilter">
 		<!-- 用户拥有的权限 -->

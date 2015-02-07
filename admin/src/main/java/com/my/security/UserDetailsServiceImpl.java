@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.my.security.service.AssemblerService;
 import com.my.user.model.SysUser;
 import com.my.user.service.SysUserService;
+import com.my.utils.JSONUtil;
 
 //@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -30,15 +31,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("============================== 1.用户 " + username + " ============================== ");
-		User user = (User) this.userCache.getUserFromCache(username);
+		User user = null;// (User) this.userCache.getUserFromCache(username);
 		if (user == null) {
-			SysUser userAccount = userService.findByUsername(username);
+			SysUser userAccount = userService.getByUsername(username);
 			if (userAccount == null) {
-				throw new UsernameNotFoundException("user not found");
+				throw new UsernameNotFoundException("用户名不存在！");
 			}
 			user = assemblerService.buildUserFromUserEntity(userAccount);
-			userCache.putUserInCache(user);
 		}
+		this.userCache.putUserInCache(user);
+		logger.info(JSONUtil.toJson(user));
 		return user;
 	}
 

@@ -2,7 +2,10 @@ package com.my.user.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.my.common.dao.SysUsersMapper;
@@ -14,23 +17,29 @@ import com.my.plugin.PageInfo;
 import com.my.user.dao.SysUserDao;
 import com.my.user.model.SysUser;
 import com.my.user.service.SysUserService;
-import com.my.utils.MD5;
 
 @Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+
 	@Autowired
 	private SysUserDao sysUserDao;
+
 	@Autowired
 	private SysUsersMapper sysUsersMapper;
 
-	public SysUsers findByNameAndPassword(String username, String password) {
+	@Autowired
+	private Md5PasswordEncoder md5PasswordEncoder;
+
+	public SysUsers getByNameAndPassword(String username, String password) {
 		if (username == null || password == null) {
 			return null;
 		}
+		Md5PasswordEncoder md5Encoder = new Md5PasswordEncoder();
+		md5Encoder.setEncodeHashAsBase64(true);
 		SysUsersExample example = new SysUsersExample();
-		example .createCriteria().andUsernameEqualTo(username)
-				.andPasswordEqualTo(MD5.encode(password));
+		example.createCriteria().andUsernameEqualTo(username).andPasswordEqualTo(md5PasswordEncoder.encodePassword(password, username));
 		List<SysUsers> users = sysUsersMapper.selectByExample(example);
 		if (users.size() > 0) {
 			return users.get(0);
@@ -38,7 +47,7 @@ public class SysUserServiceImpl implements SysUserService {
 		return null;
 	}
 
-	public SysUser findByUsername(String username) {
+	public SysUser getByUsername(String username) {
 		if (username == null) {
 			return null;
 		}
@@ -46,7 +55,7 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	public void save(SysUsers record) {
-		record.setPassword(MD5.encode(record.getPassword()));
+		record.setPassword(md5PasswordEncoder.encodePassword(record.getPassword(), record.getUsername()));
 		sysUsersMapper.insert(record);
 	}
 
@@ -62,9 +71,22 @@ public class SysUserServiceImpl implements SysUserService {
 		return pageUser;
 	}
 
-	public void update(SysUsers record) {
-		record.setPassword(MD5.encode(record.getPassword()));
-		sysUsersMapper.updateByPrimaryKeySelective(record);
+	public void update(SysUsers user) {
+		if (user == null || user.getUserId() == null || user.getUsername() == null) {
+			return;
+		}
+		logger.info("================ " + user.getPassword());
+		// user.setPassword(MD5.encode(user.getPassword()));
+		user.setPassword(md5PasswordEncoder.encodePassword(user.getPassword(), user.getUsername()));
+		sysUsersMapper.updateByPrimaryKeySelective(user);
+		SysUsersExample example = new SysUsersExample();
+		example.createCriteria().andUsernameEqualTo(user.getUsername());
+		sysUsersMapper.updateByExampleSelective(user, example);
+	}
+
+	public void saveOrUpdate(SysUsers user) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -24,12 +24,12 @@ public class SysResourceServiceImpl implements SysResourceService {
 		sysResourcesMapper.insert(resource);
 	}
 
-	public List<SysResources> findAll() {
+	public List<SysResources> getAll() {
 		SysResourcesExample example = null;
 		return sysResourcesMapper.selectByExample(example);
 	}
 
-	public List<SysResource> findAllAuth() {
+	public List<SysResource> getAllAuth() {
 		return sysResourceDao.findAllAuth();
 	}
 

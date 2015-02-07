@@ -58,7 +58,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 	private void loadSysResources() {
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-			List<SysResource> resources = sysResourcesService.findAllAuth();
+			List<SysResource> resources = sysResourcesService.getAllAuth();
 			for (SysResource resource : resources) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
 				for (SysRoles role : resource.getRoles()) {

@@ -48,7 +48,7 @@ public class UserController {
 
 	@RequestMapping("{username}")
 	public SysUsers getUser(@PathVariable String username) {
-		return userService.findByUsername(username);
+		return userService.getByUsername(username);
 	}
 
 	@RequestMapping("{id}/edit")

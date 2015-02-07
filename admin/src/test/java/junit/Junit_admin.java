@@ -36,17 +36,18 @@ public class Junit_admin {
 
 	Map<String, Object> result;
 	List<?> list;
-	
+
 	@Test
-	public void run(){
-		this.findUser();
+	public void run() {
+		//this.modifyUser();
+		this.getUser();
 	}
 
 	// @Autowired
 	private MenuService menuService;
 
 	public void menu() {
-		List<MenuModel> menus = menuService.findAll();
+		List<MenuModel> menus = menuService.getAll();
 		System.out.println(menus.size());
 		for (MenuModel menu : menus) {
 			System.out.println(JSONUtil.toJson(menu.getSubMenu()));
@@ -68,11 +69,18 @@ public class Junit_admin {
 		sysUserService.save(user);
 	}
 
-	public void findUser() {
-		SysUsers user = sysUserService.findByNameAndPassword("admin", "admin");
-		//user = sysUserService.findByUsername("admin");
+	public void getUser() {
+		SysUsers user = sysUserService.getByNameAndPassword("admin", "admin");
+		// user = sysUserService.getByUsername("admin");
 		logger.info(JSONUtil.toJson(user));
-		
+
+	}
+
+	public void modifyUser() {
+		SysUsers u = new SysUsers();
+		u.setUsername("admin");
+		u.setPassword("admin");
+		sysUserService.update(u);
 	}
 
 	public void users() {
@@ -81,7 +89,7 @@ public class Junit_admin {
 	}
 
 	public void userRoles() {
-		SysUsers user = sysUserService.findByUsername("abc");
+		SysUsers user = sysUserService.getByUsername("abc");
 		System.out.println(JSONUtil.toJson(user));
 	}
 
@@ -96,12 +104,12 @@ public class Junit_admin {
 		role.setEnabled("1");
 		role.setIsSys("0");
 		roleService.save(role);
-		// role = roleService.findByNameAndPassword("abc", "abc");
+		// role = roleService.getByNameAndPassword("abc", "abc");
 	}
 
 	public void addUserRole() {
 		roleService.addUserRole("818181ec4ad46274014ad46274080000", "818181ec4ad85c9a014ad85c9ad60000");
-		// role = service.findByNameAndPassword("abc", "abc");
+		// role = service.getByNameAndPassword("abc", "abc");
 	}
 
 	@Autowired
@@ -131,7 +139,7 @@ public class Junit_admin {
 	}
 
 	public void resources() {
-		list = sysResourcesService.findAllAuth();
+		list = sysResourcesService.getAllAuth();
 		System.out.println(JSONUtil.toJson(list));
 	}
 
@@ -148,11 +156,11 @@ public class Junit_admin {
 		module.setEnabled("1");
 		module.setLevel("2");
 		moduleService.sava(module);
-		// role = service.findByNameAndPassword("abc", "abc");
+		// role = service.getByNameAndPassword("abc", "abc");
 	}
 
 	public void modules() {
-		logger.info(JSONUtil.toJson(moduleService.findAll()));
+		logger.info(JSONUtil.toJson(moduleService.getAll()));
 	}
 
 	@Autowired

@@ -44,7 +44,7 @@
               <div class="widget-content">
                 <div class="padd">
                   <!-- Login form -->
-                  <form class="form-horizontal" method="post" action="login_check">
+                  <form class="form-horizontal" method="post" action="login_check">${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}  
             <div class="inputwrapper login-alert">
                 <div class="alert alert-error">Invalid username or password</div>
             </div>

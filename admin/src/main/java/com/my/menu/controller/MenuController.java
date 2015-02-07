@@ -32,7 +32,7 @@ public class MenuController {
 		System.out.println(user);
 		// List<MenuModel> menu = menuService.getMenuByUser(null);
 
-		List<MenuModel> menus = menuService.findAll();
+		List<MenuModel> menus = menuService.getAll();
 
 		result.put("menus", menus);
 		return result;

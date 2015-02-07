@@ -21,6 +21,6 @@
 		<javaClientGenerator targetPackage="com.my.common.dao" targetProject="src/main/java" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<table schema="dev" tableName="sys_styles" />
+		<table schema="dev" tableName="sys_authorities" />
 	</context>
 </generatorConfiguration>

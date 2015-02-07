@@ -3,7 +3,12 @@ package com.my.utils;
 import java.security.MessageDigest;
 
 public class MD5 {
-	// MD5加码。32位
+
+	/**
+	 * MD5加码 32位
+	 * @param str
+	 * @return
+	 */
 	public static String encode(String str) {
 		MessageDigest md5 = null;
 		try {

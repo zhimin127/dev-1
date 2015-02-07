@@ -11,11 +11,13 @@ public interface SysUserService {
 
 	void save(SysUsers user);
 
+	void saveOrUpdate(SysUsers user);
+
 	void update(SysUsers user);
 
-	SysUsers findByNameAndPassword(String username, String password);
+	SysUsers getByNameAndPassword(String username, String password);
 
-	SysUser findByUsername(String userName);
+	SysUser getByUsername(String userName);
 
 	List<MenuModel> getMenuByUser(SysUsers user);
 
