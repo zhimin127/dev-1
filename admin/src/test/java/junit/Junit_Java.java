@@ -15,7 +15,7 @@ public class Junit_Java {
 	@Test
 	public void uuid() {
 		for (int i = 0; i < 100; i++) {
-			System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+			System.out.println(UUID.randomUUID());
 			System.out.println(UUIDGenerator.generate());
 		}
 	}

@@ -2,6 +2,7 @@ package junit;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,20 +17,20 @@ import com.google.gson.GsonBuilder;
 import com.my.common.model.SysModules;
 import com.my.common.model.SysResources;
 import com.my.common.model.SysRoles;
+import com.my.common.model.SysStyles;
 import com.my.common.model.SysUsers;
 import com.my.menu.model.MenuModel;
 import com.my.menu.service.MenuService;
 import com.my.module.service.ModuleService;
 import com.my.plugin.PageInfo;
-import com.my.resource.service.ResourceService;
+import com.my.resource.service.SysResourceService;
 import com.my.role.service.RoleService;
+import com.my.style.service.SysStyleService;
 import com.my.user.service.UserService;
 import com.my.utils.UUIDGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml",
-		"classpath:applicationContext-mvc.xml",
-		"classpath:applicationContext-base.xml" })
+@ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:applicationContext-mvc.xml", "classpath:applicationContext-base.xml" })
 public class Junit_admin {
 
 	protected final Log logger = LogFactory.getLog(getClass());
@@ -97,28 +98,44 @@ public class Junit_admin {
 
 	// @Test
 	public void addUserRole() {
-		roleService.addUserRole("818181ec4ad46274014ad46274080000",
-				"818181ec4ad85c9a014ad85c9ad60000");
+		roleService.addUserRole("818181ec4ad46274014ad46274080000", "818181ec4ad85c9a014ad85c9ad60000");
 		// role = service.findByNameAndPassword("abc", "abc");
+	}
+
+	@Autowired
+	private SysResourceService sysResourcesService;
+
+	public final static String[] RESOURCE_TYPES = { "0", "1", "2", "3", "4" };
+	public final static String[] BASE_RESOURCES = { "导航", "首页", "用户管理", "角色管理", "资源管理" };// ,"用户列表"
+
+	@Test
+	public void addResource() {
+		String NAVIGATION_ID = "";
+		for (int i = 0; i < BASE_RESOURCES.length; i++) {
+			SysResources resource = new SysResources();
+			resource.setResourceId(UUID.randomUUID().toString());
+			if (i == 0) {
+				NAVIGATION_ID = resource.getResourceId();
+				resource.setResourceDesc("NAVIGATION");
+			} else if (i <= 4 && i > 0) {
+				resource.setParentId(NAVIGATION_ID);
+			}
+			resource.setResourceType(RESOURCE_TYPES[0]);
+			resource.setResourceName(BASE_RESOURCES[i]);
+			resource.setPriority(i);
+			resource.setEnabled("1");
+			resource.setIsSys("1");
+			sysResourcesService.save(resource);
+		}
+	}
+
+	// @Test
+	public void resources() {
+		list = sysResourcesService.findAll();
+		System.out.println(json(list));
 	}
 
 	// @Autowired
-	private ResourceService resourcesService;
-
-	// @Test
-	public void addResources() {
-		SysResources resource = new SysResources();
-		resource.setResourceId(UUIDGenerator.generate());
-		resource.setResourceType("menu");
-		resource.setResourceName("导航");
-		resource.setPriority(0);
-		resource.setEnabled("1");
-		resource.setIsSys("1");
-		resourcesService.sava(resource);
-		// role = service.findByNameAndPassword("abc", "abc");
-	}
-
-	//@Autowired
 	private ModuleService moduleService;
 
 	// @Test
@@ -135,17 +152,22 @@ public class Junit_admin {
 		// role = service.findByNameAndPassword("abc", "abc");
 	}
 
-	//@Test
+	// @Test
 	public void modules() {
 		logger.info(json(moduleService.findAll()));
 	}
-	
+
 	@Autowired
-	private ResourceService resourceService;
+	private SysStyleService sysStyleService;
+
 	@Test
-	public void resources(){
-		list = resourceService.findAuthAll();
-		System.out.println(json(list));
+	public void addStyle() {
+		for (int i = 0; i < BASE_RESOURCES.length; i++) {
+			SysStyles style = new SysStyles();
+			style.setStyleId(UUID.randomUUID().toString());
+			style.setStyleDesc(BASE_RESOURCES[i]);
+			sysStyleService.save(style);
+		}
 	}
 
 	public String json(Object object) {
