@@ -11,8 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.my.security.service.AssemblerService;
-import com.my.user.model.UserModel;
-import com.my.user.service.UserService;
+import com.my.user.model.SysUser;
+import com.my.user.service.SysUserService;
 
 //@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	@Autowired
-	private UserService userService;
+	private SysUserService userService;
 	@Autowired
 	private UserCache userCache;
 	@Autowired
@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		logger.info("============================== 1.用户 " + username + " ============================== ");
 		User user = (User) this.userCache.getUserFromCache(username);
 		if (user == null) {
-			UserModel userAccount = userService.findByName(username);
+			SysUser userAccount = userService.findByName(username);
 			if (userAccount == null) {
 				throw new UsernameNotFoundException("user not found");
 			}

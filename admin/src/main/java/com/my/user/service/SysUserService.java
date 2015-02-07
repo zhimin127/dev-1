@@ -5,9 +5,9 @@ import java.util.List;
 import com.my.common.model.SysUsers;
 import com.my.menu.model.MenuModel;
 import com.my.plugin.PageInfo;
-import com.my.user.model.UserModel;
+import com.my.user.model.SysUser;
 
-public interface UserService {
+public interface SysUserService {
 
 	void save(SysUsers user);
 
@@ -15,7 +15,7 @@ public interface UserService {
 
 	SysUsers findByNameAndPassword(String username, String password);
 
-	UserModel findByName(String userName);
+	SysUser findByName(String userName);
 
 	List<MenuModel> getMenuByUser(SysUsers user);
 

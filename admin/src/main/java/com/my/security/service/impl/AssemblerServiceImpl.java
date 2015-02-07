@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.my.common.model.SysRoles;
 import com.my.security.service.AssemblerService;
-import com.my.user.model.UserModel;
+import com.my.user.model.SysUser;
 
 @Service("assemblerService")
 public class AssemblerServiceImpl implements AssemblerService {
     
 	@Transactional(readOnly = true)
-	public User buildUserFromUserEntity(UserModel userAccount) {
+	public User buildUserFromUserEntity(SysUser userAccount) {
 		String username = userAccount.getUsername();
 		String password = userAccount.getPassword();
 		boolean enabled = userAccount.isActive();

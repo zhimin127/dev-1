@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.my.common.model.SysModules;
 import com.my.common.model.SysResources;
 import com.my.common.model.SysRoles;
@@ -26,7 +24,8 @@ import com.my.plugin.PageInfo;
 import com.my.resource.service.SysResourceService;
 import com.my.role.service.RoleService;
 import com.my.style.service.SysStyleService;
-import com.my.user.service.UserService;
+import com.my.user.service.SysUserService;
+import com.my.utils.JSONUtil;
 import com.my.utils.UUIDGenerator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,7 +35,6 @@ public class Junit_admin {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	Map<String, Object> result;
-	Gson gson;
 	List<?> list;
 
 	// @Autowired
@@ -47,40 +45,43 @@ public class Junit_admin {
 		List<MenuModel> menus = menuService.findAll();
 		System.out.println(menus.size());
 		for (MenuModel menu : menus) {
-			System.out.println(json(menu.getSubMenu()));
+			System.out.println(JSONUtil.toJson(menu.getSubMenu()));
 		}
-		System.out.println(json(menus));
+		System.out.println(JSONUtil.toJson(menus));
 
 	}
 
-	// @Autowired
-	private UserService userService;
+	@Autowired
+	private SysUserService userService;
 
-	// @Test
-	public void userRoles() {
-		SysUsers user = userService.findByName("abc");
-		System.out.println(json(user));
-	}
-
-	// @Test
-	public void user() {
+	@Test
+	public void addUser() {
 		SysUsers user = new SysUsers();
-		user.setUserId(UUIDGenerator.generate());
+		user.setUserId(UUID.randomUUID().toString());
 		user.setUsername("abc");
 		user.setPassword("abc");
 		user.setName("管理员");
 		user.setEnabled("1");
 		userService.save(user);
-		user = userService.findByNameAndPassword("abc", "abc");
+	}
+	@Test
+	public void findUser(){
+		SysUsers user = userService.findByNameAndPassword("abc", "abc");
 		System.out.println(user.getCreateTime());
 	}
 
 	// @Test
 	public void users() {
 		PageInfo<SysUsers> page = userService.getPage(1, 10);
-		System.out.println(json(page.getList()));
+		System.out.println(JSONUtil.toJson(page.getList()));
 	}
 
+
+	// @Test
+	public void userRoles() {
+		SysUsers user = userService.findByName("abc");
+		System.out.println(JSONUtil.toJson(user));
+	}
 	// @Autowired
 	private RoleService roleService;
 
@@ -108,7 +109,7 @@ public class Junit_admin {
 	public final static String[] RESOURCE_TYPES = { "0", "1", "2", "3", "4" };
 	public final static String[] BASE_RESOURCES = { "导航", "首页", "用户管理", "角色管理", "资源管理" };// ,"用户列表"
 
-	@Test
+	// @Test
 	public void addResource() {
 		String NAVIGATION_ID = "";
 		for (int i = 0; i < BASE_RESOURCES.length; i++) {
@@ -132,7 +133,7 @@ public class Junit_admin {
 	// @Test
 	public void resources() {
 		list = sysResourcesService.findAll();
-		System.out.println(json(list));
+		System.out.println(JSONUtil.toJson(list));
 	}
 
 	// @Autowired
@@ -154,28 +155,20 @@ public class Junit_admin {
 
 	// @Test
 	public void modules() {
-		logger.info(json(moduleService.findAll()));
+		logger.info(JSONUtil.toJson(moduleService.findAll()));
 	}
 
 	@Autowired
 	private SysStyleService sysStyleService;
 
-	@Test
+	// @Test
 	public void addStyle() {
 		for (int i = 0; i < BASE_RESOURCES.length; i++) {
 			SysStyles style = new SysStyles();
 			style.setStyleId(UUID.randomUUID().toString());
-			style.setStyleDesc(BASE_RESOURCES[i]);
+			style.setStyleName(BASE_RESOURCES[i]);
 			sysStyleService.save(style);
 		}
-	}
-
-	public String json(Object object) {
-		GsonBuilder gb = new GsonBuilder();
-		gb.excludeFieldsWithoutExposeAnnotation();
-		// gson = gb.create();
-		gson = new Gson();
-		return gson.toJson(object);
 	}
 
 }

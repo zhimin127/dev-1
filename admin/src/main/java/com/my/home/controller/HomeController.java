@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.my.user.service.UserService;
+import com.my.user.service.SysUserService;
 
 @RestController
 public class HomeController{
 
 	@Autowired
-	private UserService userService;
+	private SysUserService userService;
 	
 	@RequestMapping("index")
 	public ModelAndView index() {

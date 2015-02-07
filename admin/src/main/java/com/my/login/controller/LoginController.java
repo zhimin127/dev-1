@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.common.model.SysUsers;
-import com.my.user.service.UserService;
+import com.my.user.service.SysUserService;
 import com.my.utils.Constants;
 
 @RestController
@@ -18,7 +18,7 @@ import com.my.utils.Constants;
 public class LoginController {
 
 	@Autowired
-	private UserService userService;
+	private SysUserService userService;
 
 	/**
 	 * login page

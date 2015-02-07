@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.my.common.model.SysUsers;
 import com.my.plugin.PageInfo;
-import com.my.user.service.UserService;
+import com.my.user.service.SysUserService;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private SysUserService userService;
 
 	private Map<String, Object> result;
 

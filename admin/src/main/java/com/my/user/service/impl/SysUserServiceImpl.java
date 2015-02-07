@@ -11,18 +11,18 @@ import com.my.common.model.SysUsersExample;
 import com.my.menu.model.MenuModel;
 import com.my.plugin.PageHelper;
 import com.my.plugin.PageInfo;
-import com.my.user.dao.UserDao;
-import com.my.user.model.UserModel;
-import com.my.user.service.UserService;
+import com.my.user.dao.SysUserDao;
+import com.my.user.model.SysUser;
+import com.my.user.service.SysUserService;
 import com.my.utils.MD5;
 
-@Service("userService")
-public class UserServiceImpl implements UserService {
+@Service("sysUserService")
+public class SysUserServiceImpl implements SysUserService {
 
 	@Autowired
-	private UserDao userDao;
+	private SysUserDao sysUserDao;
 	@Autowired
-	private SysUsersMapper userMapper;
+	private SysUsersMapper sysUsersMapper;
 
 	public SysUsers findByNameAndPassword(String username, String password) {
 		if (username == null || password == null) {
@@ -31,23 +31,23 @@ public class UserServiceImpl implements UserService {
 		SysUsersExample example = new SysUsersExample();
 		example .createCriteria().andUsernameEqualTo(username)
 				.andPasswordEqualTo(MD5.encode(password));
-		List<SysUsers> users = userMapper.selectByExample(example);
+		List<SysUsers> users = sysUsersMapper.selectByExample(example);
 		if (users.size() > 0) {
 			return users.get(0);
 		}
 		return null;
 	}
 
-	public UserModel findByName(String username) {
+	public SysUser findByName(String username) {
 		if (username == null) {
 			return null;
 		}
-		return userDao.findByUserName(username);
+		return sysUserDao.findByUserName(username);
 	}
 
 	public void save(SysUsers record) {
 		record.setPassword(MD5.encode(record.getPassword()));
-		userMapper.insert(record);
+		sysUsersMapper.insert(record);
 	}
 
 	public List<MenuModel> getMenuByUser(SysUsers user) {
@@ -57,14 +57,14 @@ public class UserServiceImpl implements UserService {
 	public PageInfo<SysUsers> getPage(int page, int rows) {
 		PageHelper.startPage(page, rows);
 		SysUsersExample example = new SysUsersExample();
-		List<SysUsers> users = userMapper.selectByExample(example);
+		List<SysUsers> users = sysUsersMapper.selectByExample(example);
 		PageInfo<SysUsers> pageUser = new PageInfo<SysUsers>(users);
 		return pageUser;
 	}
 
 	public void update(SysUsers record) {
 		record.setPassword(MD5.encode(record.getPassword()));
-		userMapper.updateByPrimaryKeySelective(record);
+		sysUsersMapper.updateByPrimaryKeySelective(record);
 	}
 
 }

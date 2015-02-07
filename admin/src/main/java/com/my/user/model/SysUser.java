@@ -5,7 +5,7 @@ import java.util.List;
 import com.my.common.model.SysRoles;
 import com.my.common.model.SysUsers;
 
-public class UserModel extends SysUsers {
+public class SysUser extends SysUsers {
 
 	private List<SysRoles> roles;
 

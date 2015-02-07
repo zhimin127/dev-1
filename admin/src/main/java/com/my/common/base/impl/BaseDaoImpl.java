@@ -8,53 +8,50 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-
 /**
- * 集合持久层的公用的增，删，改，查类 <T> 表示传入Model类
- * 
- * @author 
- * @version 1.01
- * @param <T>
- *            父类中查找子类定义的泛型信息
+ * 集合持久层的公用的增，删，改，查类 <T> 表示传入<数据模型>类， 父类中查找子类定义的泛型信息
  */
+
 public class BaseDaoImpl<T> extends SqlSessionDaoSupport {
+
 	/**
-	 * @return 完整实体类型名称
+	 * @return <数据模型>类名
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public String getClassName() {
+	private String getClassName() {
 		// 在父类中查找子类定义的泛型信息
 		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 		Class<T> clazz = (Class) pt.getActualTypeArguments()[0];
 		return clazz.getSimpleName().toString();
 	}
 
+	private String getMapperNamespace() {
+		return this.getClassName() + "Mapper";
+	}
+
 	public int save(T t) {
-		return getSqlSession().insert(this.getClassName() + ".add", t);
+		return getSqlSession().insert(this.getMapperNamespace() + ".insert", t);
 	}
 
 	public void delete(String id) {
-		getSqlSession().delete(this.getClassName() + ".deleteById", id);
+		getSqlSession().delete(this.getMapperNamespace() + ".deleteById", id);
 	}
 
 	@SuppressWarnings("unchecked")
-	public T getById(String id) {
-		return (T) getSqlSession().selectOne(this.getClassName() + ".getById", id);
+	public T findById(String id) {
+		return (T) getSqlSession().selectOne(this.getMapperNamespace() + ".findById", id);
 	}
 
 	public void modify(T t) {
-		getSqlSession().update(this.getClassName() + ".update", t);
+		getSqlSession().update(this.getMapperNamespace() + ".modify", t);
 	}
 
-	/*public List<T> query(PageView pageView, T t) {
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("paging", pageView);
-		map.put("t", t);
-		return getSqlSession().selectList(this.getClassName() + ".query", map);
-	}*/
+	public List<T> findByT(T model) {
+		return getSqlSession().selectList(this.getClassName() + ".findByT", model);
+	}
 
 	public List<T> findAll() {
-		return getSqlSession().selectList(this.getClassName() + ".queryAll");
+		return getSqlSession().selectList(this.getMapperNamespace() + ".findAll");
 	}
 
 	@Resource
