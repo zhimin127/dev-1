@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.my.common.dao.SysResourcesMapper;
 import com.my.common.model.SysResources;
-import com.my.common.model.SysResourcesExample;
 import com.my.resource.dao.SysResourceDao;
 import com.my.resource.model.SysResource;
 import com.my.resource.service.SysResourceService;
@@ -25,8 +24,7 @@ public class SysResourceServiceImpl implements SysResourceService {
 	}
 
 	public List<SysResources> getAll() {
-		SysResourcesExample example = null;
-		return sysResourcesMapper.selectByExample(example);
+		return sysResourcesMapper.selectByExample(null);
 	}
 
 	public List<SysResource> getAllAuth() {

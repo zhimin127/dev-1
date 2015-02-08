@@ -36,7 +36,7 @@ public class LoginController {
 	//@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView login(Model model, SysUsers user, HttpServletRequest request) {
 		if (user != null) {
-			user = userService.getByNameAndPassword(user.getUsername(), user.getPassword());
+			user = userService.getByUsernameAndPassword(user.getUsername(), user.getPassword());
 		}
 		String view = "login";
 		if (user == null) {

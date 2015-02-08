@@ -10,9 +10,8 @@ public interface SysRoleService {
 	 */
 	public void save(SysRoles role);
 
-	/**
-	 * 
-	 * @param record
-	 */
-	public void addUserRole(String userId, String roleId);
+	public SysRoles getRoleByName(String name);
+
+	public void saveRoleResource(String roleId, String resourceId);
+
 }

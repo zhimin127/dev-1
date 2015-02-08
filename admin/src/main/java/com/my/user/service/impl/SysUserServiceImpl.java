@@ -1,6 +1,9 @@
 package com.my.user.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.my.common.dao.SysUsersMapper;
 import com.my.common.model.SysUsers;
 import com.my.common.model.SysUsersExample;
-import com.my.menu.model.MenuModel;
 import com.my.plugin.PageHelper;
 import com.my.plugin.PageInfo;
 import com.my.user.dao.SysUserDao;
@@ -32,7 +34,7 @@ public class SysUserServiceImpl implements SysUserService {
 	@Autowired
 	private Md5PasswordEncoder md5PasswordEncoder;
 
-	public SysUsers getByNameAndPassword(String username, String password) {
+	public SysUsers getByUsernameAndPassword(String username, String password) {
 		if (username == null || password == null) {
 			return null;
 		}
@@ -59,10 +61,6 @@ public class SysUserServiceImpl implements SysUserService {
 		sysUsersMapper.insert(record);
 	}
 
-	public List<MenuModel> getMenuByUser(SysUsers user) {
-		return null;
-	}
-
 	public PageInfo<SysUsers> getPage(int page, int rows) {
 		PageHelper.startPage(page, rows);
 		SysUsersExample example = new SysUsersExample();
@@ -85,8 +83,15 @@ public class SysUserServiceImpl implements SysUserService {
 	}
 
 	public void saveOrUpdate(SysUsers user) {
-		// TODO Auto-generated method stub
+		
+	}
 
+	public void saveUserRole(String userId, String roleId) {
+		Map<String, String> record = new HashMap<String, String>();
+		record.put("id", UUID.randomUUID().toString());
+		record.put("roleId", roleId);
+		record.put("userId", userId);
+		sysUserDao.addUserRole(record);
 	}
 
 }

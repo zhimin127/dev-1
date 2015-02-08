@@ -17,8 +17,6 @@ import com.my.common.model.SysResources;
 import com.my.common.model.SysRoles;
 import com.my.common.model.SysStyles;
 import com.my.common.model.SysUsers;
-import com.my.menu.model.MenuModel;
-import com.my.menu.service.MenuService;
 import com.my.module.service.ModuleService;
 import com.my.plugin.PageInfo;
 import com.my.resource.service.SysResourceService;
@@ -39,21 +37,9 @@ public class Junit_admin {
 
 	@Test
 	public void run() {
-		//this.modifyUser();
+		// this.modifyUser();
+		//this.addRoleResource();
 		this.getResources();
-	}
-
-	// @Autowired
-	private MenuService menuService;
-
-	public void getMenu() {
-		List<MenuModel> menus = menuService.getAll();
-		System.out.println(menus.size());
-		for (MenuModel menu : menus) {
-			System.out.println(JSONUtil.toJson(menu.getSubMenu()));
-		}
-		System.out.println(JSONUtil.toJson(menus));
-
 	}
 
 	@Autowired
@@ -70,8 +56,8 @@ public class Junit_admin {
 	}
 
 	public void getUser() {
-		SysUsers user = sysUserService.getByNameAndPassword("admin", "admin");
-		 user = sysUserService.getByUsername("admin");
+		SysUsers user = sysUserService.getByUsernameAndPassword("admin", "admin");
+		user = sysUserService.getByUsername("admin");
 		logger.info(JSONUtil.toJson(user));
 
 	}
@@ -93,8 +79,8 @@ public class Junit_admin {
 		System.out.println(JSONUtil.toJson(user));
 	}
 
-	// @Autowired
-	private SysRoleService roleService;
+	@Autowired
+	private SysRoleService sysRoleService;
 
 	public void addRole() {
 		SysRoles role = new SysRoles();
@@ -103,13 +89,28 @@ public class Junit_admin {
 		role.setRoleDesc("普通用户");
 		role.setEnabled("1");
 		role.setIsSys("0");
-		roleService.save(role);
+		sysRoleService.save(role);
 		// role = roleService.getByNameAndPassword("abc", "abc");
 	}
 
+	String[] baseRole = { "系统管理员", "登录用户" };
+
 	public void addUserRole() {
-		roleService.addUserRole("818181ec4ad46274014ad46274080000", "818181ec4ad85c9a014ad85c9ad60000");
-		// role = service.getByNameAndPassword("abc", "abc");
+		SysRoles role = sysRoleService.getRoleByName(baseRole[0]);
+		SysUsers user = sysUserService.getByUsernameAndPassword("admin", "admin");
+		sysUserService.saveUserRole(user.getUserId(), role.getRoleId());
+	}
+
+	public void addRoleResource() {
+		SysRoles role = sysRoleService.getRoleByName(baseRole[0]);
+		List<SysResources> resources = sysResourcesService.getAll();
+		logger.info(JSONUtil.toJson(role));
+		for (SysResources res : resources) {
+			//logger.info("0".equals(res.getResourceType()) && res.getPriority() != 0);
+			if ("0".equals(res.getResourceType()) && res.getPriority() != 0) {
+				sysRoleService.saveRoleResource(role.getRoleId(), res.getResourceId());
+			}
+		}
 	}
 
 	@Autowired
@@ -139,7 +140,8 @@ public class Junit_admin {
 	}
 
 	public void getResources() {
-		list = sysResourcesService.getNavResourceByRoleId("818181ec4ad85c9a014ad85c9ad60000");
+		SysRoles role = sysRoleService.getRoleByName(baseRole[0]);
+		list = sysResourcesService.getNavResourceByRoleId(role.getRoleId());
 		System.out.println(JSONUtil.toJson(list));
 	}
 

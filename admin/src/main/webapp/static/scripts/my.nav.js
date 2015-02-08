@@ -11,6 +11,7 @@ function getMenus(){
 		type : "post",
 		async : false,
 		success : function(data) {
+			//alert(data)
 			data = eval('(' + data + ')');
 			_menus = data.menus[0];
 		}
@@ -21,20 +22,26 @@ function initMacSidebar(){
 	sidebar = jQuery(".sidebar");
 	if (typeof _menus != 'undefined') {
 		var title = "<div class='sidebar-dropdown'><a href='#'>" + _menus.resourceName + "</a></div>";
-		var nav = '<ul id="nav">'
+		var nav = '<ul id="nav">';
+		
 		jQuery.each(_menus.subResources, function(i, n) {
-			var menu = '<li class="' + n.style + '">';
-			if (n.resourcePath == null || n.resourcePath == '') {
+			var style_class = getStyle(n.styles,"styleClass");
+			if(n.subResources.length > 0){
+				style_class += " has_sub";
+			}
+			var menu = '<li class="' + style_class + '">';
+			/*if (!isNotBlank(n.resourcePath)) {
 				menu += n.resourceName;
-			} else {
-				if(n.resourcePath=="#") n.resourcePath = 'javascript:void(0);'
+			} else */{
+				if(!isNotBlank(n.resourcePath) || n.resourcePath == "#") n.resourcePath = 'javascript:void(0);'
 				var _class = '';
 				if(typeof menuPos != 'undefined' && i == menuPos){
 					_class = ' class="open"'
 				}
 				menu += '<a href="' + n.resourcePath + '"'+_class+'>';
-				if (n.icon != null && n.icon != '') {
-					menu += '<i class="' + n.icon + '"></i>';
+				var icon = getStyle(n.styles,"iconName");
+				if (isNotBlank(icon)) {
+					menu += '<i class="' + icon + '"></i>';
 				}
 				menu +=  n.resourceName + '';
 			}
@@ -59,6 +66,27 @@ function initMacSidebar(){
 		
 	}
 	// 选中第一个
+}
+
+function getStyle(styles,name){
+	if(styles.length > 0){
+		var style = styles[0][name];
+		if(isNotBlank(style)){
+			return styles[0][name];
+		}
+	}
+	return '';
+}
+//
+function isNotBlank(str){
+	if (typeof str != 'undefined' && str != null && trim(str) != '') {
+		return true;
+	}
+	return false;
+}
+//删除左右两端的空格
+function trim(str){ 
+    return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
 function initLeftMenu() {

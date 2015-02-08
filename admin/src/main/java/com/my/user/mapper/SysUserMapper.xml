@@ -6,6 +6,24 @@
 		<collection property="roles" javaType="ArrayList" column="USER_ID" select="SysRoleMapper.findByUserId" />
 	</resultMap>
 	
+	
+	<!-- user role -->
+	<insert id="insertUserRole" parameterType="HashMap">
+		insert into sys_users_roles (ID,ROLE_ID, USER_ID)
+		values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="findUserRoleByUserIdAndRoleId" resultType="java.lang.String" parameterType="HashMap">
+	SELECT 
+	ID
+	FROM
+	sys_users_roles
+	WHERE
+	ROLE_ID = #{roleId}
+	AND
+	USER_ID = #{userId}
+	</select>
+	
 	<select id="findByUsername" parameterType="java.lang.String" resultMap="UserResultMap">
 		SELECT
 			*
