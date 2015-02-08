@@ -51,7 +51,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
 	 * 
 	 * @author zhimin 通过资源名称来表示具体的权限 注意：必须"ROLE_"开头
 	 *         关联代码：applicationContext-security.xml
-	 *         关联代码：com.huaxin.security.MyUserDetailServiceImpl
+	 *         关联代码：com.my.security.MyUserDetailServiceImpl
 	 *         #obtionGrantedAuthorities
 	 */
 	@PostConstruct

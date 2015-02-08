@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.my.common.dao.SysResourcesMapper;
 import com.my.common.model.SysResources;
+import com.my.common.model.SysResourcesExample;
 import com.my.resource.dao.SysResourceDao;
 import com.my.resource.model.SysResource;
 import com.my.resource.service.SysResourceService;
@@ -35,4 +36,13 @@ public class SysResourceServiceImpl implements SysResourceService {
 		return sysResourceDao.findNavResourceByRoleId(roleId);
 	}
 
+	public SysResources getByTypeAndResourceName(String resourceType, String resourceName) {
+		SysResourcesExample example = new SysResourcesExample();
+		example.createCriteria().andResourceTypeEqualTo(resourceType).andResourceNameEqualTo(resourceName);
+		List<SysResources> resources = sysResourcesMapper.selectByExample(example);
+		if(resources.size()>0){
+			return resources.get(0);
+		}
+		return null;
+	}
 }

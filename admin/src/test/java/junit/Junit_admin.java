@@ -19,6 +19,7 @@ import com.my.common.model.SysStyles;
 import com.my.common.model.SysUsers;
 import com.my.module.service.ModuleService;
 import com.my.plugin.PageInfo;
+import com.my.resource.model.SysResource;
 import com.my.resource.service.SysResourceService;
 import com.my.role.service.SysRoleService;
 import com.my.style.service.SysStyleService;
@@ -40,6 +41,7 @@ public class Junit_admin {
 		// this.modifyUser();
 		//this.addRoleResource();
 		this.getResources();
+		//this.addSubResource();
 	}
 
 	@Autowired
@@ -106,7 +108,8 @@ public class Junit_admin {
 		List<SysResources> resources = sysResourcesService.getAll();
 		logger.info(JSONUtil.toJson(role));
 		for (SysResources res : resources) {
-			//logger.info("0".equals(res.getResourceType()) && res.getPriority() != 0);
+			// logger.info("0".equals(res.getResourceType()) &&
+			// res.getPriority() != 0);
 			if ("0".equals(res.getResourceType()) && res.getPriority() != 0) {
 				sysRoleService.saveRoleResource(role.getRoleId(), res.getResourceId());
 			}
@@ -118,8 +121,9 @@ public class Junit_admin {
 
 	public final static String[] RESOURCE_TYPES = { "0", "1", "2", "3", "4" };
 	public final static String[] BASE_RESOURCES = { "导航", "首页", "用户管理", "角色管理", "资源管理" };// ,"用户列表"
+	public final static String[] RESOURCE_MAN_MENU = { "资源列表", "添加资源" };
 
-	public void addResource() {
+	public void addBaseResource() {
 		String NAVIGATION_ID = "";
 		for (int i = 0; i < BASE_RESOURCES.length; i++) {
 			SysResources resource = new SysResources();
@@ -139,10 +143,28 @@ public class Junit_admin {
 		}
 	}
 
+	public void addSubResource() {
+		SysResources resource = sysResourcesService.getByTypeAndResourceName("0", BASE_RESOURCES[4]);
+		for (int i = 0; i < RESOURCE_MAN_MENU.length; i++) {
+			SysResources subResource = new SysResources();
+			subResource.setResourceId(UUID.randomUUID().toString());
+			subResource.setParentId(resource.getResourceId());
+			subResource.setResourceType(resource.getResourceType());
+			subResource.setResourceName(RESOURCE_MAN_MENU[i]);
+			subResource.setPriority(i + 1);
+			subResource.setEnabled("1");
+			subResource.setIsSys("1");
+			sysResourcesService.save(subResource);
+		}
+	}
+
 	public void getResources() {
 		SysRoles role = sysRoleService.getRoleByName(baseRole[0]);
-		list = sysResourcesService.getNavResourceByRoleId(role.getRoleId());
-		System.out.println(JSONUtil.toJson(list));
+		List<SysResource> nav = sysResourcesService.getNavResourceByRoleId(role.getRoleId());
+		for(SysResource sub:nav.get(0).getSubResources()){
+			System.out.println(sub.getResourceName()+":" +JSONUtil.toJson(sub.getSubResources()));
+		}
+		
 	}
 
 	// @Autowired

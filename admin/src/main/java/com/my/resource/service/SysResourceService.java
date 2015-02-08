@@ -14,4 +14,6 @@ public interface SysResourceService {
 	List<SysResource> getAllAuth();
 
 	List<SysResource> getNavResourceByRoleId(String roleId);
+
+	SysResources getByTypeAndResourceName(String resourceType, String resourceName);
 }
