@@ -159,12 +159,14 @@ public class Junit_admin {
 	}
 
 	public void getResources() {
-		SysRoles role = sysRoleService.getRoleByName(baseRole[0]);
+		/*SysRoles role = sysRoleService.getRoleByName(baseRole[0]);
 		List<SysResource> nav = sysResourcesService.getNavResourceByRoleId(role.getRoleId());
+		
 		for(SysResource sub:nav.get(0).getSubResources()){
 			System.out.println(sub.getResourceName()+":" +JSONUtil.toJson(sub.getSubResources()));
-		}
-		
+		}*/
+		List<SysResource> res = sysResourcesService.getPageByT(null, 0, 2);
+		logger.info(JSONUtil.toJson(res));
 	}
 
 	// @Autowired

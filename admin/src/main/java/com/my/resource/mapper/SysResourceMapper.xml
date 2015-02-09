@@ -4,7 +4,7 @@
 
 	<resultMap id="ResourceResultMap" type="com.my.resource.model.SysResource" extends="com.my.common.dao.SysResourcesMapper.BaseResultMap">
 		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
-		<collection property="subResources" javaType="ArrayList" column="{resourceId=RESOURCE_ID,roleId=ROLE_ID}" select="findSubResources" />
+		<collection property="subResources" javaType="ArrayList" column="{resourceId=RESOURCE_ID,resourceType=RESOURCE_TYPE,roleId=ROLE_ID}" select="findSubResources" />
 		<collection property="styles" javaType="ArrayList" column="RESOURCE_ID" select="SysStyleMapper.findByResourceId" />
 	</resultMap>
 
@@ -23,6 +23,18 @@
 		AND
 		RESOURCE_PATH <> '#'
 		]]>
+	</select>
+	
+	<select id="findByT" resultMap="AuthResourceResultMap" parameterType="com.my.resource.model.SysResource">
+		SELECT
+		<include refid="com.my.common.dao.SysResourcesMapper.Base_Column_List" />
+		FROM
+		sys_resources
+		<where>
+		<if test="resourceType != null">
+			RESOURCE_TYPE = #{resourceType}
+		</if>
+		</where>
 	</select>
 
 	<select id="findNavResourceByRoleId" resultMap="ResourceResultMap" parameterType="java.lang.String">
@@ -67,6 +79,8 @@
 		t1.RESOURCE_ID = t2.RESOURCE_ID
 		WHERE
 		t1.PARENT_ID = #{resourceId}
+		AND
+		t1.RESOURCE_TYPE = #{resourceType}
 		AND
 		t2.ROLE_ID = #{roleId}
 	</select>

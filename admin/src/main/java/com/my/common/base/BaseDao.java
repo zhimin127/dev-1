@@ -59,4 +59,12 @@ public interface BaseDao<T> {
 	 */
 	public List<T> findByT(T model);
 
+	/**
+	 * 根据 <数据模型>条件分页查询
+	 * 
+	 * @param model
+	 *            <数据模型>
+	 * @return <数据模型>集合
+	 */
+	public List<T> findPageByT(T model, int page, int pageSize);
 }

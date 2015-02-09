@@ -1082,6 +1082,7 @@ $(function () {
 
 });
 var menuPos = 0;
+var baseURL = "/admin"
 /* Curve chart ends */
 </script>
 

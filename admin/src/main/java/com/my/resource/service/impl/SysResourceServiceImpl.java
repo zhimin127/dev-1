@@ -40,9 +40,17 @@ public class SysResourceServiceImpl implements SysResourceService {
 		SysResourcesExample example = new SysResourcesExample();
 		example.createCriteria().andResourceTypeEqualTo(resourceType).andResourceNameEqualTo(resourceName);
 		List<SysResources> resources = sysResourcesMapper.selectByExample(example);
-		if(resources.size()>0){
+		if (resources.size() > 0) {
 			return resources.get(0);
 		}
 		return null;
+	}
+
+	public List<SysResource> getByT(SysResource resource) {
+		return sysResourceDao.findByT(resource);
+	}
+
+	public List<SysResource> getPageByT(SysResource resource, int page, int pageSize) {
+		return sysResourceDao.findPageByT(resource, page, pageSize);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -47,7 +48,11 @@ public class BaseDaoImpl<T> extends SqlSessionDaoSupport {
 	}
 
 	public List<T> findByT(T model) {
-		return getSqlSession().selectList(this.getClassName() + ".findByT", model);
+		return getSqlSession().selectList(this.getMapperNamespace() + ".findByT", model);
+	}
+
+	public List<T> findPageByT(T model, int page, int pageSize) {
+		return getSqlSession().selectList(this.getMapperNamespace() + ".findByT", model,new RowBounds(page, pageSize));
 	}
 
 	public List<T> findAll() {

@@ -38,7 +38,7 @@ function initMacSidebar(){
 				if(typeof menuPos != 'undefined' && i == menuPos){
 					_class = ' class="open"'
 				}
-				menu += '<a href="' + n.resourcePath + '"'+_class+'>';
+				menu += '<a href="' + baseURL + n.resourcePath + '"'+_class+'>';
 				var icon = getStyle(n.styles,"iconName");
 				if (isNotBlank(icon)) {
 					menu += '<i class="' + icon + '"></i>';

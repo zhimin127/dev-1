@@ -16,4 +16,8 @@ public interface SysResourceService {
 	List<SysResource> getNavResourceByRoleId(String roleId);
 
 	SysResources getByTypeAndResourceName(String resourceType, String resourceName);
+
+	List<SysResource> getByT(SysResource resource);
+
+	List<SysResource> getPageByT(SysResource resource, int page, int pageSize);
 }
