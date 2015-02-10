@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +66,7 @@
 
           <!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
           <li class="dropdown dropdown-big">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="icon-cloud-upload"></i></span> Upload to Cloud</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-success"><i class="icon-cloud-upload"></i></span> 上传到云服务器</a>
             <!-- Dropdown -->
             <ul class="dropdown-menu">
               <li>
@@ -102,7 +103,7 @@
 
           <!-- Sync to server link -->
           <li class="dropdown dropdown-big">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger"><i class="icon-refresh"></i></span> Sync with Server</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-danger"><i class="icon-refresh"></i></span> 同步到服务器</a>
             <!-- Dropdown -->
             <ul class="dropdown-menu">
               <li>
@@ -342,56 +343,7 @@
 <div class="content">
 
   	<!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
-
-        <!--- Sidebar navigation -->
-        <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
-        <ul id="nav">
-          <!-- Main menu with font awesome icon -->
-          <li><a href="index.html"><i class="icon-home"></i> Dashboard</a>
-            <!-- Sub menu markup 
-            <ul>
-              <li><a href="#">Submenu #1</a></li>
-              <li><a href="#">Submenu #2</a></li>
-              <li><a href="#">Submenu #3</a></li>
-            </ul>-->
-          </li>
-          <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> Widgets  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
-            <ul>
-              <li><a href="widgets1.html">Widgets #1</a></li>
-              <li><a href="widgets2.html">Widgets #2</a></li>
-              <li><a href="widgets3.html">Widgets #3</a></li>
-            </ul>
-          </li>  
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> Pages #1  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
-            <ul>
-              <li><a href="post.html">Post</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="register.html">Register</a></li>
-              <li><a href="support.html">Support</a></li>
-              <li><a href="invoice.html">Invoice</a></li>
-              <li><a href="profile.html">Profile</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-          </li> 
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> Pages #2  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
-            <ul>
-              <li><a href="media.html">Media</a></li>
-              <li><a href="statement.html">Statement</a></li>
-              <li><a href="error.html">Error</a></li>
-              <li><a href="error-log.html">Error Log</a></li>
-              <li><a href="calendar.html">Calendar</a></li>
-              <li><a href="grid.html">Grid</a></li>
-            </ul>
-          </li>                             
-          <li><a href="charts.html"><i class="icon-bar-chart"></i> Charts</a></li> 
-          <li><a href="tables.html" class="open"><i class="icon-table"></i> Tables</a></li>
-          <li><a href="forms.html"><i class="icon-tasks"></i> Forms</a></li>
-          <li><a href="ui.html"><i class="icon-magic"></i> User Interface</a></li>
-          <li><a href="calendar.html"><i class="icon-calendar"></i> Calendar</a></li>
-        </ul>
-    </div>
+    <div class="sidebar"></div>
 
     <!-- Sidebar ends -->
 
@@ -452,100 +404,25 @@
                         </tr>
                       </thead>
                       <tbody>
-
+						<c:forEach items="${resources}" var="item" varStatus="status">
                         <tr>
-                          <td>1</td>
-                          <td>Ravi Kumar</td>
-                          <td>India</td>
+                          <td align="center">${status.index+1}</td>
+                          <td>${item.resourceName}</td>
+                          <td>${item.resourcePath}</td>
                           <td>23/12/2012</td>
-                          <td>Paid</td>
-                          <td><span class="label label-success">Active</span></td>
+                          <td>${item.resourceType}</td>
+                          <td><span class="label ${item.enabled=='1'?'label-success':'label-default' }">Active</span></td>
                           <td>
-
                               <button class="btn btn-xs btn-success"><i class="icon-ok"></i> </button>
                               <button class="btn btn-xs btn-warning"><i class="icon-pencil"></i> </button>
                               <button class="btn btn-xs btn-danger"><i class="icon-remove"></i> </button>
-                          
                           </td>
                         </tr>
-
-
-                        <tr>
-                          <td>2</td>
-                          <td>Parneethi Chopra</td>
-                          <td>USA</td>
-                          <td>13/02/2012</td>
-                          <td>Free</td>
-                          <td><span class="label label-danger">Banned</span></td>
-                          <td>
-
-                              <button class="btn btn-xs btn-default"><i class="icon-ok"></i> </button>
-                              <button class="btn btn-xs btn-default"><i class="icon-pencil"></i> </button>
-                              <button class="btn btn-xs btn-default"><i class="icon-remove"></i> </button>
-
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>3</td>
-                          <td>Kumar Ragu</td>
-                          <td>Japan</td>
-                          <td>12/03/2012</td>
-                          <td>Paid</td>
-                          <td><span class="label label-success">Active</span></td>
-                          <td>
-
-                            <div class="btn-group">
-                              <button class="btn btn-xs btn-default"><i class="icon-ok"></i> </button>
-                              <button class="btn btn-xs btn-default"><i class="icon-pencil"></i> </button>
-                              <button class="btn btn-xs btn-default"><i class="icon-remove"></i> </button>
-                            </div>
-
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>4</td>
-                          <td>Vishnu Vardan</td>
-                          <td>Bangkok</td>
-                          <td>03/11/2012</td>
-                          <td>Paid</td>
-                          <td><span class="label label-success">Active</span></td>
-                          <td>
-
-                            <div class="btn-group">
-                              <button class="btn btn-xs btn-success"><i class="icon-ok"></i> </button>
-                              <button class="btn btn-xs btn-warning"><i class="icon-pencil"></i> </button>
-                              <button class="btn btn-xs btn-danger"><i class="icon-remove"></i> </button>
-                            </div>
-
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>5</td>
-                          <td>Anuksha Sharma</td>
-                          <td>Singapore</td>
-                          <td>13/32/2012</td>
-                          <td>Free</td>
-                          <td><span class="label label-danger">Banned</span></td>
-                          <td>
-
-                            <div class="btn-group1">
-                              <button class="btn btn-xs btn-success"><i class="icon-ok"></i> </button>
-                              <button class="btn btn-xs btn-warning"><i class="icon-pencil"></i> </button>
-                              <button class="btn btn-xs btn-danger"><i class="icon-remove"></i> </button>
-                            </div>
-
-                          </td>
-                        </tr>                                                            
-
+						</c:forEach>
                       </tbody>
                     </table>
 
                     <div class="widget-foot">
-
-                     
                         <ul class="pagination pull-right">
                           <li><a href="#">Prev</a></li>
                           <li><a href="#">1</a></li>
@@ -592,6 +469,7 @@
 
 <!-- JS -->
 <script src="static/js/jquery.js"></script> <!-- jQuery -->
+<script src="static/js/jquery-migrate-1.1.1.min.js"></script> <!-- jQuery -->
 <script src="static/scripts/my.nav.js"></script><!-- Navigation -->
 <script src="static/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="static/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
